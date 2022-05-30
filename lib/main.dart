@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => LoginViewModel()),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Learning Management System',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
