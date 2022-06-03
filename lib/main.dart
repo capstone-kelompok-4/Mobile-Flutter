@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lms/screen/empty_screen.dart';
+import 'package:lms/constants/styles.dart';
 import 'package:lms/screen/forgot_password/forgot_password_screen.dart';
 import 'package:lms/screen/login/login_screen.dart';
 import 'package:lms/screen/login/login_view_model.dart';
@@ -23,9 +23,8 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Learning Management System',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+        debugShowCheckedModeBanner: false,
+        theme: lightTheme,
         initialRoute: LoginScreen.routeName,
         onGenerateRoute: (setting) {
           if (setting.name == SplashScreen.routeName) {
@@ -49,9 +48,7 @@ class MyApp extends StatelessWidget {
             );
           }
 
-          return PageRouteFadeTransition(
-            const EmptyScreen(),
-          );
+          return null;
         },
       ),
     );
