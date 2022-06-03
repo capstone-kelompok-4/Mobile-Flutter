@@ -3,6 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 const Color primaryColor = Color(0xFF007FFE);
 const Color secondaryColor = Colors.deepOrange;
+Color grey400 = Colors.grey[400]!;
+Color grey300 = Colors.grey[300]!;
+Color grey200 = Colors.grey[200]!;
 
 ThemeData lightTheme = ThemeData(
   primaryColor: primaryColor,
