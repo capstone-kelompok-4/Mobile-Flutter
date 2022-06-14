@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:lms/screen/forgot_password/forgot_password_screen.dart';
+import 'package:lms/screen/main/main_screen.dart';
 import 'package:lms/widgets/custom_notification_snackbar.dart';
 import 'package:string_validator/string_validator.dart';
 
@@ -24,7 +25,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _login() {
     if (_formKey.currentState!.validate()) {
-      CustomNotificationSnackbar(context: context, message: "login");
+      Navigator.pushReplacementNamed(context, MainScreen.routeName);
+      CustomNotificationSnackbar(context: context, message: "Login success");
     }
   }
 

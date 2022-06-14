@@ -2,10 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 const Color primaryColor = Color(0xFF007FFE);
-const Color secondaryColor = Colors.deepOrange;
+const Color secondaryColor = Color(0xFFFF6C00);
+Color grey600 = Colors.grey[600]!;
+Color grey500 = Colors.grey[500]!;
 Color grey400 = Colors.grey[400]!;
 Color grey300 = Colors.grey[300]!;
 Color grey200 = Colors.grey[200]!;
+Color colorWhite = Colors.white;
+Color colorBlack = Colors.black;
+
+const Color colorBlueLight = Color(0xFFF0F5FD);
+const Color colorBlueDark = Color(0xFF133461);
+const Color colorTextBlue = Color(0xFF133461);
+const Color colorBgCourse = Color(0xFFD6DEEC);
+const Color inactiveMenu = Color(0xFF627896);
+const Color colorOrange = Color(0xFFFF6C00);
+const Color colorOrangeLight = Color(0xFFFFCEAA);
 
 ThemeData lightTheme = ThemeData(
   primaryColor: primaryColor,

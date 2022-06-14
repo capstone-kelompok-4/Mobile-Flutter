@@ -1,0 +1,1 @@
+enum CourseState { myCourse, overview }
