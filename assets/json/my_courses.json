@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "name": "UI/UX Research & Design",
+      "progress": 40,
+      "image": "course_1.png"
+    },
+    {
+      "name": "Mastering Front-End Development with ReactJS",
+      "progress": 60,
+      "image": "course_2.png"
+    },
+    {
+      "name": "Mastering Mobile Development with Flutter",
+      "progress": 81,
+      "image": "course_3.png"
+    },
+    {
+      "name": "Mastering Back-End Development with Java Spring Boot",
+      "progress": 40,
+      "image": "course_4.png"
+    }
+  ]
+}
