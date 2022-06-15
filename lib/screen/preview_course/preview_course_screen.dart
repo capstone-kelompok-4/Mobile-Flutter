@@ -18,6 +18,11 @@ class PreviewCourseScreen extends StatefulWidget {
 
 class _PreviewCourseScreenState extends State<PreviewCourseScreen> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: NestedScrollView(
@@ -53,12 +58,13 @@ class _PreviewCourseScreenState extends State<PreviewCourseScreen> {
             decoration:
                 BoxDecoration(color: colorBlueDark, borderRadius: BorderRadius.circular(50.0)),
             child: IconButton(
-                onPressed: () => Navigator.pop(context),
-                icon: const Icon(
-                  Icons.arrow_back,
-                  color: Colors.white,
-                  size: 20,
-                )),
+              onPressed: () => Navigator.pop(context),
+              icon: const Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+                size: 20,
+              ),
+            ),
           ),
         )
       ],
@@ -83,9 +89,10 @@ class _PreviewCourseScreenState extends State<PreviewCourseScreen> {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           SizedBox.fromSize(
                               size: const Size(20, 15),
@@ -104,7 +111,7 @@ class _PreviewCourseScreenState extends State<PreviewCourseScreen> {
                         ],
                       ),
                       Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           SizedBox.fromSize(
                               size: const Size(20, 15),
@@ -113,7 +120,7 @@ class _PreviewCourseScreenState extends State<PreviewCourseScreen> {
                             width: 8.0,
                           ),
                           Text(
-                            "4.0",
+                            "${widget.myCourse.rating}",
                             style: Theme.of(context).textTheme.subtitle2!.copyWith(
                                 fontSize: 12, color: colorTextBlue, fontWeight: FontWeight.bold),
                           ),
@@ -139,8 +146,7 @@ class _PreviewCourseScreenState extends State<PreviewCourseScreen> {
                   ),
                   RichText(
                     text: TextSpan(
-                      text:
-                          'UI/UX Designer adalah sebuah bidang pekerjaan yang banyak dibutuhkan di era teknologi seperti saat ini. Yuk, mulai petualanganmu menjadi UI/UX Designer idaman banyak perusahaan.',
+                      text: widget.myCourse.description,
                       style: Theme.of(context)
                           .textTheme
                           .subtitle2!
@@ -264,10 +270,11 @@ class _PreviewCourseScreenState extends State<PreviewCourseScreen> {
                   height: 8.0,
                 );
               },
-              itemCount: 9,
+              itemCount: widget.myCourse.materials.length,
               itemBuilder: (context, index) {
+                final section = widget.myCourse.materials[index];
                 return CustomItemSection(
-                  index: index,
+                  section: section,
                 );
               },
             ),

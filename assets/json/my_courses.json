@@ -2,23 +2,535 @@
   "data": [
     {
       "name": "UI/UX Research & Design",
+      "image": "course_1.png",
+      "description": "UI/UX Designer adalah sebuah bidang pekerjaan yang banyak dibutuhkan di era teknologi seperti saat ini. Seorang UI/UX Designer bertugas untuk merancang sebuah tampilan suatu aplikasi dengan pendekatan kebiasan pengguna / user untuk memastikan agar aplikasi yang dirancang mudah digunakan dan menarik bagi pengguna.",
+      "rating": 4.0,
       "progress": 40,
-      "image": "course_1.png"
+      "materials": [
+        {
+          "id": 1,
+          "name": "Fundamental of UI/UX",
+          "data_video": {
+            "url": "https://www.youtube.com/watch?v=N3n4BTiWCPc",
+            "timeline": [
+              {
+                "name": "Mencari Masalah",
+                "from": "00h:00m:10s"
+              },
+              {
+                "name": "Brainstoriming",
+                "from": "00h:02m:00s"
+              },
+              {
+                "name": "Design",
+                "from": "00h:04m:00s"
+              },
+              {
+                "name": "Implementasi",
+                "from": "00h:06m:00s"
+              },
+              {
+                "name": "Usability testing & evaluasi",
+                "from": "00h:08m:00s"
+              }
+            ]
+          }
+        },
+        {
+          "id": 2,
+          "name": "User Persona",
+          "data_video": {
+            "url": "https://www.youtube.com/watch?v=qj-QDB7hvnY",
+            "timeline": [
+              {
+                "name": "Apa itu user persona?",
+                "from": "00h:00m:10s"
+              },
+              {
+                "name": "Kenapa harus dibuat user persona?",
+                "from": "00h:02m:00s"
+              },
+              {
+                "name": "Waktu ideal membuat user persona",
+                "from": "00h:04m:00s"
+              },
+              {
+                "name": "Tools yang digunakan",
+                "from": "00h:06m:00s"
+              }
+            ]
+          }
+        },
+        {
+          "id": 3,
+          "name": "Interface Structure",
+          "data_video": {
+            "url": "https://www.youtube.com/watch?v=F6f6W7S9Y6k",
+            "timeline": [
+              {
+                "name": "Introduction",
+                "from": "00h:00m:00s"
+              },
+              {
+                "name": "Decomposition recap",
+                "from": "00h:00m:16s"
+              },
+              {
+                "name": "Step-wise refinement and structure diagrams",
+                "from": "00h:00m:40s"
+              },
+              {
+                "name": "Recap",
+                "from": "00h:03m:23s"
+              }
+            ]
+          }
+        },
+        {
+          "id": 4,
+          "name": "Figma Introduction",
+          "data_video": {
+            "url": "https://www.youtube.com/watch?v=jk1T0CdLxwU",
+            "timeline": [
+              {
+                "name": "Benefits to using Figma",
+                "from": "00h:00m:10s"
+              },
+              {
+                "name": "Brief tour of the UI",
+                "from": "00h:02m:00s"
+              },
+              {
+                "name": "Pages vs Artboards",
+                "from": "00h:04m:00s"
+              },
+              {
+                "name": "Working responsive",
+                "from": "00h:06m:00s"
+              },
+              {
+                "name": "Adding Shapes",
+                "from": "00h:08m:00s"
+              },
+              {
+                "name": "Details panel",
+                "from": "00h:10m:00s"
+              },
+              {
+                "name": "Pen Tool",
+                "from": "00h:12m:00s"
+              },
+              {
+                "name": "Prototyping",
+                "from": "00h:14m:00s"
+              },
+              {
+                "name": "Exporting",
+                "from": "00h:16m:00s"
+              }
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "Mastering Front-End Development with ReactJS",
+      "image": "course_2.png",
+      "description": "React JS adalah library Front-End yang sedang yang sangat mature. Dalam sebuah Survei yang dilakukan oleh Team Research Alterra Academy, React JS telah digunakan oleh perusahaan Unicorn dan Centaur di Indonesia. React JS menjadi teknologi yang sangat populer karena bahasa tersebut dikembangkan oleh Facebook dan memiliki performa bagus. \n\nDalam survey State of JS dan StackOverflow tahun 2020, React menempati urutan nomor 2 dalam hal Front-End framework terpopuler. Dengan menguasai React JS, seorang Programmer memiliki skill yang banyak dicari oleh perusahaan-perusahaan ternama di Indonesia.",
+      "rating": 4.2,
       "progress": 60,
-      "image": "course_2.png"
+      "materials": [
+        {
+          "id": 1,
+          "name": "Fundamental of UI/UX",
+          "data_video": {
+            "url": "https://www.youtube.com/watch?v=N3n4BTiWCPc",
+            "timeline": [
+              {
+                "name": "Mencari Masalah",
+                "from": "00h:00m:10s"
+              },
+              {
+                "name": "Brainstoriming",
+                "from": "00h:02m:00s"
+              },
+              {
+                "name": "Design",
+                "from": "00h:04m:00s"
+              },
+              {
+                "name": "Implementasi",
+                "from": "00h:06m:00s"
+              },
+              {
+                "name": "Usability testing & evaluasi",
+                "from": "00h:08m:00s"
+              }
+            ]
+          }
+        },
+        {
+          "id": 2,
+          "name": "User Persona",
+          "data_video": {
+            "url": "https://www.youtube.com/watch?v=qj-QDB7hvnY",
+            "timeline": [
+              {
+                "name": "Apa itu user persona?",
+                "from": "00h:00m:10s"
+              },
+              {
+                "name": "Kenapa harus dibuat user persona?",
+                "from": "00h:02m:00s"
+              },
+              {
+                "name": "Waktu ideal membuat user persona",
+                "from": "00h:04m:00s"
+              },
+              {
+                "name": "Tools yang digunakan",
+                "from": "00h:06m:00s"
+              }
+            ]
+          }
+        },
+        {
+          "id": 3,
+          "name": "Interface Structure",
+          "data_video": {
+            "url": "https://www.youtube.com/watch?v=F6f6W7S9Y6k",
+            "timeline": [
+              {
+                "name": "Introduction",
+                "from": "00h:00m:00s"
+              },
+              {
+                "name": "Decomposition recap",
+                "from": "00h:00m:16s"
+              },
+              {
+                "name": "Step-wise refinement and structure diagrams",
+                "from": "00h:00m:40s"
+              },
+              {
+                "name": "Recap",
+                "from": "00h:03m:23s"
+              }
+            ]
+          }
+        },
+        {
+          "id": 4,
+          "name": "Figma Introduction",
+          "data_video": {
+            "url": "https://www.youtube.com/watch?v=jk1T0CdLxwU",
+            "timeline": [
+              {
+                "name": "Benefits to using Figma",
+                "from": "00h:00m:10s"
+              },
+              {
+                "name": "Brief tour of the UI",
+                "from": "00h:02m:00s"
+              },
+              {
+                "name": "Pages vs Artboards",
+                "from": "00h:04m:00s"
+              },
+              {
+                "name": "Working responsive",
+                "from": "00h:06m:00s"
+              },
+              {
+                "name": "Adding Shapes",
+                "from": "00h:08m:00s"
+              },
+              {
+                "name": "Details panel",
+                "from": "00h:10m:00s"
+              },
+              {
+                "name": "Pen Tool",
+                "from": "00h:12m:00s"
+              },
+              {
+                "name": "Prototyping",
+                "from": "00h:14m:00s"
+              },
+              {
+                "name": "Exporting",
+                "from": "00h:16m:00s"
+              }
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "Mastering Mobile Development with Flutter",
+      "image": "course_3.png",
+      "description": "Flutter merupakan teknologi milik Google untuk membangun aplikasi dengan tampilan UI yang apik, serta dapat di-compile secara native ke dalam aplikasi mobile, web, dan desktop hanya dari satu basis kode. Flutter menggunakan bahasa Dart, sebuah bahasa pemrograman yang dikembangkan oleh Google.\n\nBanyak perusahaan besar dunia yang telah mengadopsi Flutter untuk mengembangkan aplikasi mereka. Sebut saja Google, Alibaba Group, dan Grab.",
+      "rating": 4.8,
       "progress": 81,
-      "image": "course_3.png"
+      "materials": [
+        {
+          "id": 1,
+          "name": "Fundamental of UI/UX",
+          "data_video": {
+            "url": "https://www.youtube.com/watch?v=N3n4BTiWCPc",
+            "timeline": [
+              {
+                "name": "Mencari Masalah",
+                "from": "00h:00m:10s"
+              },
+              {
+                "name": "Brainstoriming",
+                "from": "00h:02m:00s"
+              },
+              {
+                "name": "Design",
+                "from": "00h:04m:00s"
+              },
+              {
+                "name": "Implementasi",
+                "from": "00h:06m:00s"
+              },
+              {
+                "name": "Usability testing & evaluasi",
+                "from": "00h:08m:00s"
+              }
+            ]
+          }
+        },
+        {
+          "id": 2,
+          "name": "User Persona",
+          "data_video": {
+            "url": "https://www.youtube.com/watch?v=qj-QDB7hvnY",
+            "timeline": [
+              {
+                "name": "Apa itu user persona?",
+                "from": "00h:00m:10s"
+              },
+              {
+                "name": "Kenapa harus dibuat user persona?",
+                "from": "00h:02m:00s"
+              },
+              {
+                "name": "Waktu ideal membuat user persona",
+                "from": "00h:04m:00s"
+              },
+              {
+                "name": "Tools yang digunakan",
+                "from": "00h:06m:00s"
+              }
+            ]
+          }
+        },
+        {
+          "id": 3,
+          "name": "Interface Structure",
+          "data_video": {
+            "url": "https://www.youtube.com/watch?v=F6f6W7S9Y6k",
+            "timeline": [
+              {
+                "name": "Introduction",
+                "from": "00h:00m:00s"
+              },
+              {
+                "name": "Decomposition recap",
+                "from": "00h:00m:16s"
+              },
+              {
+                "name": "Step-wise refinement and structure diagrams",
+                "from": "00h:00m:40s"
+              },
+              {
+                "name": "Recap",
+                "from": "00h:03m:23s"
+              }
+            ]
+          }
+        },
+        {
+          "id": 4,
+          "name": "Figma Introduction",
+          "data_video": {
+            "url": "https://www.youtube.com/watch?v=jk1T0CdLxwU",
+            "timeline": [
+              {
+                "name": "Benefits to using Figma",
+                "from": "00h:00m:10s"
+              },
+              {
+                "name": "Brief tour of the UI",
+                "from": "00h:02m:00s"
+              },
+              {
+                "name": "Pages vs Artboards",
+                "from": "00h:04m:00s"
+              },
+              {
+                "name": "Working responsive",
+                "from": "00h:06m:00s"
+              },
+              {
+                "name": "Adding Shapes",
+                "from": "00h:08m:00s"
+              },
+              {
+                "name": "Details panel",
+                "from": "00h:10m:00s"
+              },
+              {
+                "name": "Pen Tool",
+                "from": "00h:12m:00s"
+              },
+              {
+                "name": "Prototyping",
+                "from": "00h:14m:00s"
+              },
+              {
+                "name": "Exporting",
+                "from": "00h:16m:00s"
+              }
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "Mastering Back-End Development with Java Spring Boot",
-      "progress": 40,
-      "image": "course_4.png"
+      "image": "course_4.png",
+      "description": "Spring Boot adalah salah satu Framework Spring untuk membangun aplikasi berbasis Java yang bersifat open source yang dapat digunakan untuk membuat Micro Service. Spring Boot membuat pemrograman Java lebih cepat, mudah, dan aman untuk semua orang, hal tersebut membuat Springboot menjadi framework Java paling populer.\n\nJavaspringboot sendiri sudah digunakan oleh beberapa perusahaan ternama, diantara lain Nintendo, Facebook, Netflix, Adobe, Gitlab, Xiaomi, Grammarly dan 9GAG.",
+      "rating": 3.5,
+      "progress": 45,
+      "materials": [
+        {
+          "id": 1,
+          "name": "Fundamental of UI/UX",
+          "data_video": {
+            "url": "https://www.youtube.com/watch?v=N3n4BTiWCPc",
+            "timeline": [
+              {
+                "name": "Mencari Masalah",
+                "from": "00h:00m:10s"
+              },
+              {
+                "name": "Brainstoriming",
+                "from": "00h:02m:00s"
+              },
+              {
+                "name": "Design",
+                "from": "00h:04m:00s"
+              },
+              {
+                "name": "Implementasi",
+                "from": "00h:06m:00s"
+              },
+              {
+                "name": "Usability testing & evaluasi",
+                "from": "00h:08m:00s"
+              }
+            ]
+          }
+        },
+        {
+          "id": 2,
+          "name": "User Persona",
+          "data_video": {
+            "url": "https://www.youtube.com/watch?v=qj-QDB7hvnY",
+            "timeline": [
+              {
+                "name": "Apa itu user persona?",
+                "from": "00h:00m:10s"
+              },
+              {
+                "name": "Kenapa harus dibuat user persona?",
+                "from": "00h:02m:00s"
+              },
+              {
+                "name": "Waktu ideal membuat user persona",
+                "from": "00h:04m:00s"
+              },
+              {
+                "name": "Tools yang digunakan",
+                "from": "00h:06m:00s"
+              }
+            ]
+          }
+        },
+        {
+          "id": 3,
+          "name": "Interface Structure",
+          "data_video": {
+            "url": "https://www.youtube.com/watch?v=F6f6W7S9Y6k",
+            "timeline": [
+              {
+                "name": "Introduction",
+                "from": "00h:00m:00s"
+              },
+              {
+                "name": "Decomposition recap",
+                "from": "00h:00m:16s"
+              },
+              {
+                "name": "Step-wise refinement and structure diagrams",
+                "from": "00h:00m:40s"
+              },
+              {
+                "name": "Recap",
+                "from": "00h:03m:23s"
+              }
+            ]
+          }
+        },
+        {
+          "id": 4,
+          "name": "Figma Introduction",
+          "data_video": {
+            "url": "https://www.youtube.com/watch?v=jk1T0CdLxwU",
+            "timeline": [
+              {
+                "name": "Benefits to using Figma",
+                "from": "00h:00m:10s"
+              },
+              {
+                "name": "Brief tour of the UI",
+                "from": "00h:02m:00s"
+              },
+              {
+                "name": "Pages vs Artboards",
+                "from": "00h:04m:00s"
+              },
+              {
+                "name": "Working responsive",
+                "from": "00h:06m:00s"
+              },
+              {
+                "name": "Adding Shapes",
+                "from": "00h:08m:00s"
+              },
+              {
+                "name": "Details panel",
+                "from": "00h:10m:00s"
+              },
+              {
+                "name": "Pen Tool",
+                "from": "00h:12m:00s"
+              },
+              {
+                "name": "Prototyping",
+                "from": "00h:14m:00s"
+              },
+              {
+                "name": "Exporting",
+                "from": "00h:16m:00s"
+              }
+            ]
+          }
+        }
+      ]
     }
   ]
 }
