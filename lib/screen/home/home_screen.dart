@@ -171,7 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                     itemCount: 5,
                     itemBuilder: (context, index) {
-                      return CustomItemWebinar();
+                      return const CustomItemWebinar();
                     }),
               ),
               const SizedBox(

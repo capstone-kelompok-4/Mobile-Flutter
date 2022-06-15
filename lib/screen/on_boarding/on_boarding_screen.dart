@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lms/constants/lorem_ipsum.dart';
 import 'package:lms/screen/login/login_screen.dart';
 
 import '../../constants/styles.dart';
@@ -11,7 +10,7 @@ class OnBoardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: grey400,
+      backgroundColor: colorBlueDark,
       body: SafeArea(
           child: SingleChildScrollView(
         child: Padding(
@@ -22,31 +21,36 @@ class OnBoardingScreen extends StatelessWidget {
               const SizedBox(
                 height: 50,
               ),
-              Container(
+              SizedBox(
                 width: 270,
-                height: 270,
-                color: grey600,
+                height: 400,
+                child: Center(
+                  child: Image.asset(
+                    "assets/images/people_opening_laptop.png",
+                    scale: 0.5,
+                  ),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
                   "Welcome to Learning Management Corporate!",
                   textAlign: TextAlign.center,
-                  style: Theme.of(context)
-                      .textTheme
-                      .subtitle2!
-                      .copyWith(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+                  style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
-                  loremIpsum1,
+                  "Tech talent incubator yang memberikan kesempatan bagi banyak individu untuk menjadi tech talent profesional dan berkualitas.",
                   textAlign: TextAlign.center,
-                  style: Theme.of(context)
-                      .textTheme
-                      .subtitle2!
-                      .copyWith(color: Colors.black, fontSize: 12, fontWeight: FontWeight.bold),
+                  style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                        color: Colors.white,
+                      ),
                 ),
               ),
               SizedBox(
@@ -63,8 +67,8 @@ class OnBoardingScreen extends StatelessWidget {
                       "Start",
                       style: Theme.of(context)
                           .textTheme
-                          .subtitle2!
-                          .copyWith(color: Colors.black, fontWeight: FontWeight.bold),
+                          .subtitle1!
+                          .copyWith(color: colorTextBlue, fontWeight: FontWeight.bold),
                     )),
               ),
             ],

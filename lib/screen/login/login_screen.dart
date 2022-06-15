@@ -1,11 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:lms/constants/styles.dart';
 import 'package:lms/screen/forgot_password/forgot_password_screen.dart';
 import 'package:lms/screen/main/main_screen.dart';
 import 'package:lms/widgets/custom_notification_snackbar.dart';
 import 'package:string_validator/string_validator.dart';
-
-import '../../constants/styles.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = '/login_screen';
@@ -48,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: grey400,
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: SafeArea(
           child: Padding(
@@ -58,12 +57,15 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.1,
+                  ),
                   Center(
                     child: Text(
                       "LOGIN",
                       style: Theme.of(context)
                           .textTheme
-                          .headline6!
+                          .headline5!
                           .copyWith(color: Colors.black, fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -74,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     "Your email",
                     style: Theme.of(context).textTheme.subtitle1!.copyWith(
                           color: Colors.black,
-                          fontSize: 12.0,
+                          fontWeight: FontWeight.bold,
                         ),
                   ),
                   const SizedBox(
@@ -87,14 +89,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     keyboardType: TextInputType.emailAddress,
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
-                      fillColor: Colors.grey[350],
+                      fillColor: Colors.white,
                       filled: true,
                       hintText: "12345678@corporate.com",
-                      enabledBorder: InputBorder.none,
-                      focusedBorder: InputBorder.none,
                       prefixIcon: Icon(
                         Icons.email_outlined,
                         color: Colors.grey[500],
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                     validator: (value) {
@@ -120,7 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     "Password",
                     style: Theme.of(context).textTheme.subtitle1!.copyWith(
                           color: Colors.black,
-                          fontSize: 12.0,
+                          fontWeight: FontWeight.bold,
                         ),
                   ),
                   const SizedBox(
@@ -134,11 +137,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     textInputAction: TextInputAction.send,
                     onFieldSubmitted: (_) => _login(),
                     decoration: InputDecoration(
-                      fillColor: Colors.grey[350],
+                      fillColor: Colors.white,
                       filled: true,
                       hintText: "Password..",
-                      enabledBorder: InputBorder.none,
-                      focusedBorder: InputBorder.none,
                       prefixIcon: Icon(
                         Icons.lock_outlined,
                         color: Colors.grey[500],
@@ -154,6 +155,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             _isPasswordVisible = !_isPasswordVisible;
                           });
                         },
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                     validator: (value) {
@@ -188,16 +192,21 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                        onPressed: _login,
-                        style: ElevatedButton.styleFrom(
-                            primary: Colors.grey[350],
-                            shape:
-                                RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0))),
-                        child: Text(
-                          "Login",
-                          style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                              color: Colors.black, fontSize: 12, fontWeight: FontWeight.bold),
-                        )),
+                      onPressed: _login,
+                      style: ElevatedButton.styleFrom(
+                        primary: colorOrange,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                        ),
+                      ),
+                      child: Text(
+                        "Login",
+                        style: Theme.of(context)
+                            .textTheme
+                            .subtitle1!
+                            .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                    ),
                   ),
                   Center(
                     child: RichText(

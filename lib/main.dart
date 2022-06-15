@@ -80,7 +80,9 @@ class MyApp extends StatelessWidget {
           }
           if (setting.name == SectionVideoScreen.routeName) {
             return PageRouteFadeTransition(
-              const SectionVideoScreen(),
+              SectionVideoScreen(
+                section: setting.arguments as DataMaterialCourse,
+              ),
             );
           }
           if (setting.name == SectionQuizScreen.routeName) {
