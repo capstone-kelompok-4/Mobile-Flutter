@@ -75,9 +75,9 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     return Consumer<MainViewModel>(builder: (context, model, child) {
       return Scaffold(
         body: _listWidgetMenu[model.indexBottomNav],
-        backgroundColor: colorWhite,
+        backgroundColor: Colors.white,
         bottomNavigationBar: AnimatedBottomNavigationBar.builder(
-          backgroundColor: Colors.white,
+          backgroundColor: colorBlueLight2,
           itemCount: _listMenu.length,
           tabBuilder: (int index, bool isActive) {
             final color = isActive ? colorOrange : inactiveMenu;
@@ -106,11 +106,12 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
               ],
             );
           },
+          elevation: 3.0,
           gapLocation: GapLocation.none,
           splashColor: colorOrange,
           notchAndCornersAnimation: animation,
           notchSmoothness: NotchSmoothness.defaultEdge,
-          splashSpeedInMilliseconds: 300,
+          splashSpeedInMilliseconds: 400,
           leftCornerRadius: 10,
           rightCornerRadius: 10,
           activeIndex: model.indexBottomNav,

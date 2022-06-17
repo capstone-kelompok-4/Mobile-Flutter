@@ -81,96 +81,99 @@ class _CustomItemSectionState extends State<CustomItemSection> with TickerProvid
         },
       ),
       children: [
-        GestureDetector(
+        InkWell(
           onTap: () =>
               Navigator.pushNamed(context, SectionVideoScreen.routeName, arguments: widget.section),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              const Icon(
-                Icons.play_circle_fill,
-                color: colorOrange,
-              ),
-              const SizedBox(
-                width: 8.0,
-              ),
-              Expanded(
-                child: Text(
-                  "Play Video",
-                  style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                        color: Colors.white,
-                      ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(
-          height: 12.0,
-        ),
-        GestureDetector(
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Container(
-                width: 20,
-                height: 20,
-                margin: const EdgeInsets.only(left: 2),
-                padding: const EdgeInsets.all(2.0),
-                decoration: BoxDecoration(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 6.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                const Icon(
+                  Icons.play_circle_fill,
                   color: colorOrange,
-                  borderRadius: BorderRadius.circular(150.0),
                 ),
-                child: const Center(
-                  child: Icon(
-                    Icons.download_rounded,
-                    size: 15,
-                    color: colorBlueDark,
+                const SizedBox(
+                  width: 8.0,
+                ),
+                Expanded(
+                  child: Text(
+                    "Play Video",
+                    style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                          color: Colors.white,
+                        ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                width: 8.0,
-              ),
-              Expanded(
-                child: Text(
-                  "Unduh Materi",
-                  style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                        color: Colors.white,
-                      ),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-        const SizedBox(
-          height: 12.0,
+        InkWell(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 6.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Container(
+                  width: 20,
+                  height: 20,
+                  margin: const EdgeInsets.only(left: 2),
+                  padding: const EdgeInsets.all(2.0),
+                  decoration: BoxDecoration(
+                    color: colorOrange,
+                    borderRadius: BorderRadius.circular(150.0),
+                  ),
+                  child: const Center(
+                    child: Icon(
+                      Icons.download_rounded,
+                      size: 15,
+                      color: colorBlueDark,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 8.0,
+                ),
+                Expanded(
+                  child: Text(
+                    "Unduh Materi",
+                    style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                          color: Colors.white,
+                        ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
-        GestureDetector(
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              const SizedBox(
-                width: 2.0,
-              ),
-              SizedBox.fromSize(
-                size: const Size(20, 20),
-                child: Center(
-                  child: Image.asset("assets/images/icon_flash.png"),
+        InkWell(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 6.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                const SizedBox(
+                  width: 2.0,
                 ),
-              ),
-              const SizedBox(
-                width: 8.0,
-              ),
-              Expanded(
-                child: Text(
-                  "Quiz",
-                  style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                        color: Colors.white,
-                      ),
+                SizedBox.fromSize(
+                  size: const Size(20, 20),
+                  child: Center(
+                    child: Image.asset("assets/images/icon_flash.png"),
+                  ),
                 ),
-              ),
-            ],
+                const SizedBox(
+                  width: 8.0,
+                ),
+                Expanded(
+                  child: Text(
+                    "Quiz",
+                    style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                          color: Colors.white,
+                        ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ],

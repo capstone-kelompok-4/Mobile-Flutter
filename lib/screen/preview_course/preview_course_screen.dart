@@ -18,11 +18,6 @@ class PreviewCourseScreen extends StatefulWidget {
 
 class _PreviewCourseScreenState extends State<PreviewCourseScreen> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: NestedScrollView(
@@ -32,11 +27,15 @@ class _PreviewCourseScreenState extends State<PreviewCourseScreen> {
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
           automaticallyImplyLeading: true,
+          shadowColor: Colors.black,
+          elevation: 3.0,
           floating: true,
           pinned: true,
           snap: true,
           expandedHeight: 200,
           flexibleSpace: FlexibleSpaceBar(
+            titlePadding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 74.0),
+            expandedTitleScale: 1.4,
             title: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: .5, sigmaY: .5),
               child: Text(
@@ -79,8 +78,9 @@ class _PreviewCourseScreenState extends State<PreviewCourseScreen> {
                 children: [
                   Text(
                     widget.myCourse.name,
-                    style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                    style: Theme.of(context).textTheme.headline6!.copyWith(
                           color: colorTextBlue,
+                          fontSize: 15,
                           fontWeight: FontWeight.bold,
                         ),
                   ),
@@ -102,7 +102,7 @@ class _PreviewCourseScreenState extends State<PreviewCourseScreen> {
                             width: 8.0,
                           ),
                           Text(
-                            "9 Materi",
+                            "${widget.myCourse.materials.length} Materi",
                             style: Theme.of(context)
                                 .textTheme
                                 .subtitle2!
@@ -145,6 +145,7 @@ class _PreviewCourseScreenState extends State<PreviewCourseScreen> {
                     height: 16.0,
                   ),
                   RichText(
+                    textAlign: TextAlign.start,
                     text: TextSpan(
                       text: widget.myCourse.description,
                       style: Theme.of(context)
@@ -184,12 +185,21 @@ class _PreviewCourseScreenState extends State<PreviewCourseScreen> {
                           ),
                           Row(
                             children: [
-                              SizedBox(
+                              Container(
                                 width: 30,
                                 height: 30,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: colorBlueDark,
+                                    width: 2.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(50.0),
+                                ),
                                 child: ClipOval(
-                                  child: Image.network(
-                                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_RlT-ytB9A_TQFLKMqVYpdJiiRbckTCThmw&usqp=CAU"),
+                                  child: Image.asset(
+                                    "assets/images/avatar_blue_round.png",
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                               const SizedBox(

@@ -41,8 +41,8 @@ class _CourseScreenState extends State<CourseScreen> with TickerProviderStateMix
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        shadowColor: colorBlack,
-        elevation: 1.0,
+        shadowColor: Colors.black,
+        elevation: 3.0,
         leadingWidth: 120,
         leading: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
@@ -58,17 +58,15 @@ class _CourseScreenState extends State<CourseScreen> with TickerProviderStateMix
                 color: colorBlueDark,
               ))
         ],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-                height: 50,
-                margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 16),
-                decoration: const BoxDecoration(
-                    color: colorBlueDark, borderRadius: BorderRadius.all(Radius.circular(20))),
-                child: Consumer<CourseViewModel>(builder: (context, model, child) {
+        bottom: PreferredSize(
+            preferredSize: const Size(double.infinity, 85),
+            child: Container(
+              height: 50,
+              margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 16),
+              decoration: const BoxDecoration(
+                  color: colorBlueDark, borderRadius: BorderRadius.all(Radius.circular(20))),
+              child: Consumer<CourseViewModel>(
+                builder: (context, model, child) {
                   return DefaultTabController(
                     length: 2,
                     initialIndex: model.courseState == CourseState.myCourse ? 0 : 1,
@@ -78,7 +76,7 @@ class _CourseScreenState extends State<CourseScreen> with TickerProviderStateMix
                       unselectedLabelColor: Colors.white,
                       padding: const EdgeInsets.all(6.0),
                       indicator: RectangularIndicator(
-                        color: colorWhite,
+                        color: Colors.white,
                         bottomLeftRadius: 15,
                         bottomRightRadius: 15,
                         topLeftRadius: 15,
@@ -108,7 +106,14 @@ class _CourseScreenState extends State<CourseScreen> with TickerProviderStateMix
                       ],
                     ),
                   );
-                })),
+                },
+              ),
+            )),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
             Consumer<CourseViewModel>(builder: (context, model, child) {
               if (model.courseState == CourseState.myCourse) {
                 if (model.stateMyCourses == ResultState.loading) {
