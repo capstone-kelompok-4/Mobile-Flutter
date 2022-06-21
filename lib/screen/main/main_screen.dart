@@ -77,7 +77,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
         body: _listWidgetMenu[model.indexBottomNav],
         backgroundColor: Colors.white,
         bottomNavigationBar: AnimatedBottomNavigationBar.builder(
-          backgroundColor: colorBlueLight2,
+          backgroundColor: Colors.white,
           itemCount: _listMenu.length,
           tabBuilder: (int index, bool isActive) {
             final color = isActive ? colorOrange : inactiveMenu;
@@ -90,19 +90,19 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   height: 24,
                   color: color,
                 ),
-                const SizedBox(height: 4),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: AutoSizeText(
-                    _listMenu[index],
-                    maxLines: 1,
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle1!
-                        .copyWith(color: color, fontSize: 12.0),
-                    group: autoSizeGroup,
+                if (model.indexBottomNav == index)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 4),
+                    child: AutoSizeText(
+                      _listMenu[index],
+                      maxLines: 1,
+                      style: Theme.of(context)
+                          .textTheme
+                          .subtitle1!
+                          .copyWith(color: color, fontSize: 12.0),
+                      group: autoSizeGroup,
+                    ),
                   ),
-                ),
               ],
             );
           },

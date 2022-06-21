@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:lms/data/model/my_course_model.dart';
+import 'package:lms/screen/section_quiz/section_quiz_screen.dart';
 import 'package:lms/screen/section_video/section_video_screen.dart';
 
 import '../constants/styles.dart';
@@ -147,6 +148,8 @@ class _CustomItemSectionState extends State<CustomItemSection> with TickerProvid
           ),
         ),
         InkWell(
+          onTap: () =>
+              Navigator.pushNamed(context, SectionQuizScreen.routeName, arguments: widget.section),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 6.0),
             child: Row(

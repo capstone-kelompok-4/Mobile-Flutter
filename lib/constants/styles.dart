@@ -17,6 +17,7 @@ const Color colorBgCourse = Color(0xFFD6DEEC);
 const Color inactiveMenu = Color(0xFF133461);
 const Color colorOrange = Color(0xFFFF6C00);
 const Color colorOrangeLight = Color(0xFFFFCEAA);
+const Color colorGrey = Color(0xFF9EA4AA);
 
 ThemeData lightTheme = ThemeData(
   primaryColor: primaryColor,
