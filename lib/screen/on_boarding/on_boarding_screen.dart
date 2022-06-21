@@ -22,12 +22,11 @@ class OnBoardingScreen extends StatelessWidget {
                 height: 50,
               ),
               SizedBox(
-                width: 270,
-                height: 400,
+                width: MediaQuery.of(context).size.width * 0.8,
+                height: 300,
                 child: Center(
                   child: Image.asset(
                     "assets/images/people_opening_laptop.png",
-                    scale: 0.5,
                   ),
                 ),
               ),

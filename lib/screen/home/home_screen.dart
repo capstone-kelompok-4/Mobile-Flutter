@@ -31,8 +31,8 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        shadowColor: colorBlack,
-        elevation: 1.0,
+        shadowColor: Colors.black,
+        elevation: 3.0,
         leadingWidth: 120,
         leading: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
@@ -102,8 +102,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             },
                             style: ElevatedButton.styleFrom(
                               primary: grey200,
-                              shape:
-                                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0)),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(6.0),
+                              ),
                             ),
                             child: Text(
                               "Get Started",
@@ -120,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     bottom: 0,
                     child: Image.asset(
                       "assets/images/people_opening_laptop.png",
-                      scale: 0.7,
+                      width: 200,
                     ),
                   ),
                 ],

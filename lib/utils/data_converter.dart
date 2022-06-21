@@ -1,4 +1,11 @@
 class DataConverter {
+  static Duration convertDuration(String duration) {
+    String parseTimeDuration =
+        "${duration.substring(0, 2)}h${duration.substring(2, 5)}m${duration.substring(5, 8)}s";
+    Duration newDuration = parseDuration(parseTimeDuration, separator: ':');
+    return newDuration;
+  }
+
   static Duration parseDuration(String input, {String separator = ':'}) {
     final parts = input.split(separator).map((t) => t.trim()).toList();
 

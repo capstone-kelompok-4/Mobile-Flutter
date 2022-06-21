@@ -64,8 +64,8 @@ class _SectionVideoScreenState extends State<SectionVideoScreen> {
           return Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.white,
-              shadowColor: colorBlack,
-              elevation: 1.0,
+              shadowColor: Colors.black,
+              elevation: 3.0,
               leading: Container(
                 margin: const EdgeInsets.all(10.0),
                 decoration:
@@ -98,6 +98,7 @@ class _SectionVideoScreenState extends State<SectionVideoScreen> {
                   ),
                 ],
               ),
+              bottom: PreferredSize(preferredSize: const Size(double.infinity, 232), child: player),
             ),
             // floatingActionButton: FloatingActionButton(
             //   onPressed: () {
@@ -158,9 +159,9 @@ class _SectionVideoScreenState extends State<SectionVideoScreen> {
                             return ListTile(
                               tileColor: colorBlueDark,
                               onTap: () {
-                                _youtubeController.seekTo(DataConverter.parseDuration(
-                                    timeline?.from ?? "00h:00m:00s",
-                                    separator: ":"));
+                                _youtubeController.seekTo(
+                                  DataConverter.convertDuration(timeline?.from ?? "00:00:00"),
+                                );
                               },
                               title: Text(
                                 timeline?.name ?? "",
@@ -173,7 +174,7 @@ class _SectionVideoScreenState extends State<SectionVideoScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Text(
-                                    timeline?.from ?? "00h:00m:00s",
+                                    timeline?.from ?? "00:00:00",
                                     style: Theme.of(context).textTheme.subtitle2!.copyWith(
                                           color: Colors.white,
                                         ),
