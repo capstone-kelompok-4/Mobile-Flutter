@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lms/constants/styles.dart';
 import 'package:string_validator/string_validator.dart';
 
@@ -24,6 +25,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   @override
   void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      SystemChrome.setSystemUIOverlayStyle(overlayStyleWhite);
+    });
+
     super.initState();
   }
 
@@ -37,17 +42,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: grey400,
-      appBar: AppBar(
-        backgroundColor: grey400,
-        title: Text(
-          "Forgot Password",
-          style: Theme.of(context)
-              .textTheme
-              .headline6!
-              .copyWith(color: Colors.black, fontWeight: FontWeight.bold),
-        ),
-      ),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(32.0),
@@ -55,12 +50,25 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(
+                child: TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text(
+                    "Back to Login",
+                    style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                          color: colorTextBlue,
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.w600,
+                        ),
+                  ),
+                ),
+              ),
+              Center(
                 child: Text(
                   "FORGOT PASSWORD",
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline6!
-                      .copyWith(color: Colors.black, fontWeight: FontWeight.bold),
+                  style: Theme.of(context).textTheme.headline6!.copyWith(
+                        color: colorTextBlue,
+                        fontWeight: FontWeight.bold,
+                      ),
                 ),
               ),
               const SizedBox(
@@ -73,8 +81,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     "Please enter your email correctly and we will send you a link where you can change your password.",
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                          color: Colors.white,
+                          color: colorTextBlue,
                           fontSize: 12.0,
+                          fontWeight: FontWeight.w600,
                         ),
                   ),
                 ),
@@ -93,8 +102,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     Text(
                       "Your email",
                       style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                            color: Colors.black,
+                            color: colorTextBlue,
                             fontSize: 12.0,
+                            fontWeight: FontWeight.w600,
                           ),
                     ),
                     const SizedBox(
@@ -108,14 +118,16 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       textInputAction: TextInputAction.send,
                       onFieldSubmitted: (_) => _forgotPassword(),
                       decoration: InputDecoration(
-                        fillColor: Colors.grey[350],
+                        fillColor: Colors.white,
                         filled: true,
                         hintText: "12345678@corporate.com",
-                        enabledBorder: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        prefixIcon: Icon(
-                          Icons.email_outlined,
-                          color: Colors.grey[500],
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: colorBlueDark),
+                          borderRadius: BorderRadius.circular(16.0),
+                        ),
+                        border: OutlineInputBorder(
+                          borderSide: const BorderSide(color: colorBlueDark),
+                          borderRadius: BorderRadius.circular(16.0),
                         ),
                       ),
                       validator: (value) {
@@ -140,16 +152,22 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                          onPressed: _forgotPassword,
-                          style: ElevatedButton.styleFrom(
-                              primary: Colors.grey[350],
-                              shape:
-                                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0))),
-                          child: Text(
-                            "Send Reset Link",
-                            style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                                color: Colors.black, fontSize: 12, fontWeight: FontWeight.bold),
-                          )),
+                        onPressed: () => _forgotPassword(),
+                        style: ElevatedButton.styleFrom(
+                          primary: colorOrange,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6.0),
+                          ),
+                        ),
+                        child: Text(
+                          "Send Reset Link",
+                          style: Theme.of(context)
+                              .textTheme
+                              .button!
+                              .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
+                      ),
                     ),
                   ],
                 ),

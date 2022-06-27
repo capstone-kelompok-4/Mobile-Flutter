@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:lms/constants/styles.dart';
-import 'package:lms/data/model/my_course_model.dart';
+import 'package:lms/data/model/course_detail_model.dart';
+import 'package:lms/screen/certificate/certificate_screen.dart';
+import 'package:lms/screen/certificate_check/certificate_check_screen.dart';
 import 'package:lms/screen/course/course_view_model.dart';
+import 'package:lms/screen/course_request_form/course_request_form_screen.dart';
+import 'package:lms/screen/detail_course/detail_course_screen.dart';
+import 'package:lms/screen/detail_course/detail_course_view_model.dart';
+import 'package:lms/screen/faq/faq_screen.dart';
+import 'package:lms/screen/faq/faq_view_model.dart';
 import 'package:lms/screen/forgot_password/forgot_password_screen.dart';
 import 'package:lms/screen/home/home_view_model.dart';
 import 'package:lms/screen/login/login_screen.dart';
@@ -9,13 +16,16 @@ import 'package:lms/screen/login/login_view_model.dart';
 import 'package:lms/screen/main/main_screen.dart';
 import 'package:lms/screen/main/main_view_model.dart';
 import 'package:lms/screen/on_boarding/on_boarding_screen.dart';
-import 'package:lms/screen/preview_course/preview_course_screen.dart';
+import 'package:lms/screen/profile_change_password/profile_change_password_screen.dart';
+import 'package:lms/screen/profile_edit/profile_edit_screen.dart';
 import 'package:lms/screen/register/register_screen.dart';
+import 'package:lms/screen/section_material/section_material_screen.dart';
 import 'package:lms/screen/section_quiz/section_quiz_screen.dart';
 import 'package:lms/screen/section_quiz/section_quiz_view_model.dart';
 import 'package:lms/screen/section_video/section_video_screen.dart';
 import 'package:lms/screen/section_video/section_video_view_model.dart';
 import 'package:lms/screen/splash/splash_screen.dart';
+import 'package:lms/screen/tos/tos_screen.dart';
 import 'package:lms/utils/page_route_fade_transition.dart';
 import 'package:provider/provider.dart';
 
@@ -36,6 +46,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => CourseViewModel()),
         ChangeNotifierProvider(create: (context) => SectionVideoViewModel()),
         ChangeNotifierProvider(create: (context) => SectionQuizViewModel()),
+        ChangeNotifierProvider(create: (context) => DetailCourseViewModel()),
+        ChangeNotifierProvider(create: (context) => FaqViewModel()),
       ],
       child: MaterialApp(
         title: 'Learning Management System',
@@ -73,9 +85,9 @@ class MyApp extends StatelessWidget {
               const MainScreen(),
             );
           }
-          if (setting.name == PreviewCourseScreen.routeName) {
+          if (setting.name == DetailCourseScreen.routeName) {
             return PageRouteFadeTransition(
-              PreviewCourseScreen(myCourse: setting.arguments as DataMyCourse),
+              DetailCourseScreen(myCourse: setting.arguments as DataMyCourse),
             );
           }
           if (setting.name == SectionVideoScreen.routeName) {
@@ -85,11 +97,53 @@ class MyApp extends StatelessWidget {
               ),
             );
           }
+          if (setting.name == SectionMaterialScreen.routeName) {
+            return PageRouteFadeTransition(
+              SectionMaterialScreen(
+                section: setting.arguments as DataMaterialCourse,
+              ),
+            );
+          }
           if (setting.name == SectionQuizScreen.routeName) {
             return PageRouteFadeTransition(
               SectionQuizScreen(
                 section: setting.arguments as DataMaterialCourse,
               ),
+            );
+          }
+          if (setting.name == CourseRequestFormScreen.routeName) {
+            return PageRouteFadeTransition(
+              const CourseRequestFormScreen(),
+            );
+          }
+          if (setting.name == ProfileEditScreen.routeName) {
+            return PageRouteFadeTransition(
+              const ProfileEditScreen(),
+            );
+          }
+          if (setting.name == ProfileChangePassword.routeName) {
+            return PageRouteFadeTransition(
+              const ProfileChangePassword(),
+            );
+          }
+          if (setting.name == CertificateScreen.routeName) {
+            return PageRouteFadeTransition(
+              const CertificateScreen(),
+            );
+          }
+          if (setting.name == CertificateCheckScreen.routeName) {
+            return PageRouteFadeTransition(
+              const CertificateCheckScreen(),
+            );
+          }
+          if (setting.name == FaqScreen.routeName) {
+            return PageRouteFadeTransition(
+              const FaqScreen(),
+            );
+          }
+          if (setting.name == TosScreen.routeName) {
+            return PageRouteFadeTransition(
+              const TosScreen(),
             );
           }
 

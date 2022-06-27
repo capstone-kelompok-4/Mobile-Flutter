@@ -12,7 +12,7 @@
           "name": "Fundamental of UI/UX",
           "data_video": {
             "url": "https://www.youtube.com/watch?v=N3n4BTiWCPc",
-            "timeline": [
+            "timelines": [
               {
                 "name": "Mencari Masalah",
                 "from": "00:00:10"
@@ -41,7 +41,7 @@
           "name": "User Persona",
           "data_video": {
             "url": "https://www.youtube.com/watch?v=qj-QDB7hvnY",
-            "timeline": [
+            "timelines": [
               {
                 "name": "Apa itu user persona?",
                 "from": "00:00:10"
@@ -66,7 +66,7 @@
           "name": "Interface Structure",
           "data_video": {
             "url": "https://www.youtube.com/watch?v=F6f6W7S9Y6k",
-            "timeline": [
+            "timelines": [
               {
                 "name": "Introduction",
                 "from": "00:00:00"
@@ -91,7 +91,7 @@
           "name": "Figma Introduction",
           "data_video": {
             "url": "https://www.youtube.com/watch?v=jk1T0CdLxwU",
-            "timeline": [
+            "timelines": [
               {
                 "name": "Benefits to using Figma",
                 "from": "00:00:10"
@@ -145,7 +145,7 @@
           "name": "Fundamental of UI/UX",
           "data_video": {
             "url": "https://www.youtube.com/watch?v=N3n4BTiWCPc",
-            "timeline": [
+            "timelines": [
               {
                 "name": "Mencari Masalah",
                 "from": "00:00:10"
@@ -174,7 +174,7 @@
           "name": "User Persona",
           "data_video": {
             "url": "https://www.youtube.com/watch?v=qj-QDB7hvnY",
-            "timeline": [
+            "timelines": [
               {
                 "name": "Apa itu user persona?",
                 "from": "00:00:10"
@@ -199,7 +199,7 @@
           "name": "Interface Structure",
           "data_video": {
             "url": "https://www.youtube.com/watch?v=F6f6W7S9Y6k",
-            "timeline": [
+            "timelines": [
               {
                 "name": "Introduction",
                 "from": "00:00:00"
@@ -224,7 +224,7 @@
           "name": "Figma Introduction",
           "data_video": {
             "url": "https://www.youtube.com/watch?v=jk1T0CdLxwU",
-            "timeline": [
+            "timelines": [
               {
                 "name": "Benefits to using Figma",
                 "from": "00:00:10"
@@ -278,7 +278,7 @@
           "name": "Fundamental of UI/UX",
           "data_video": {
             "url": "https://www.youtube.com/watch?v=N3n4BTiWCPc",
-            "timeline": [
+            "timelines": [
               {
                 "name": "Mencari Masalah",
                 "from": "00:00:10"
@@ -307,7 +307,7 @@
           "name": "User Persona",
           "data_video": {
             "url": "https://www.youtube.com/watch?v=qj-QDB7hvnY",
-            "timeline": [
+            "timelines": [
               {
                 "name": "Apa itu user persona?",
                 "from": "00:00:10"
@@ -332,7 +332,7 @@
           "name": "Interface Structure",
           "data_video": {
             "url": "https://www.youtube.com/watch?v=F6f6W7S9Y6k",
-            "timeline": [
+            "timelines": [
               {
                 "name": "Introduction",
                 "from": "00:00:00"
@@ -357,7 +357,7 @@
           "name": "Figma Introduction",
           "data_video": {
             "url": "https://www.youtube.com/watch?v=jk1T0CdLxwU",
-            "timeline": [
+            "timelines": [
               {
                 "name": "Benefits to using Figma",
                 "from": "00:00:10"
@@ -411,7 +411,7 @@
           "name": "Fundamental of UI/UX",
           "data_video": {
             "url": "https://www.youtube.com/watch?v=N3n4BTiWCPc",
-            "timeline": [
+            "timelines": [
               {
                 "name": "Mencari Masalah",
                 "from": "00:00:10"
@@ -440,7 +440,7 @@
           "name": "User Persona",
           "data_video": {
             "url": "https://www.youtube.com/watch?v=qj-QDB7hvnY",
-            "timeline": [
+            "timelines": [
               {
                 "name": "Apa itu user persona?",
                 "from": "00:00:10"
@@ -465,7 +465,7 @@
           "name": "Interface Structure",
           "data_video": {
             "url": "https://www.youtube.com/watch?v=F6f6W7S9Y6k",
-            "timeline": [
+            "timelines": [
               {
                 "name": "Introduction",
                 "from": "00:00:00"
@@ -490,7 +490,7 @@
           "name": "Figma Introduction",
           "data_video": {
             "url": "https://www.youtube.com/watch?v=jk1T0CdLxwU",
-            "timeline": [
+            "timelines": [
               {
                 "name": "Benefits to using Figma",
                 "from": "00:00:10"

@@ -21,7 +21,10 @@ class _CourseScreenState extends State<CourseScreen> with TickerProviderStateMix
 
   @override
   void initState() {
+    final CourseViewModel courseViewModel = Provider.of<CourseViewModel>(context, listen: false);
+
     _tabController = TabController(vsync: this, length: 2);
+    courseViewModel.changeCourseState(CourseState.myCourse);
     super.initState();
   }
 
@@ -34,6 +37,13 @@ class _CourseScreenState extends State<CourseScreen> with TickerProviderStateMix
       courseViewModel.getCourseOverviewFromJson();
     });
     super.didChangeDependencies();
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+
+    super.dispose();
   }
 
   @override

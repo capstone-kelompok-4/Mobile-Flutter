@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lms/data/model/my_course_model.dart';
+import 'package:lms/data/model/course_detail_model.dart';
 import 'package:lms/utils/course_state.dart';
 
 import '../../data/model/course_overview_model.dart';
@@ -28,7 +28,7 @@ class CourseViewModel extends ChangeNotifier {
     changeMyCoursesState(ResultState.loading);
     try {
       final String raw = await rootBundle.loadString('assets/json/my_courses.json');
-      final MyCourseModel listMyCourse = MyCourseModel.fromJson(json.decode(raw));
+      final CourseDetailModel listMyCourse = CourseDetailModel.fromJson(json.decode(raw));
 
       _myCourses = listMyCourse.data;
       changeMyCoursesState(ResultState.hasData);

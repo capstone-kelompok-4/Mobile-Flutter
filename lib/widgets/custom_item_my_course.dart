@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:lms/data/model/my_course_model.dart';
-import 'package:lms/screen/preview_course/preview_course_screen.dart';
+import 'package:lms/data/model/course_detail_model.dart';
+import 'package:lms/screen/detail_course/detail_course_view_model.dart';
+import 'package:lms/utils/course_type_state.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:provider/provider.dart';
 
 import '../constants/styles.dart';
+import '../screen/detail_course/detail_course_screen.dart';
 
 class CustomItemMyCourse extends StatelessWidget {
   final DataMyCourse myCourse;
@@ -14,7 +17,13 @@ class CustomItemMyCourse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Navigator.pushNamed(context, PreviewCourseScreen.routeName, arguments: myCourse),
+      onTap: () {
+        final DetailCourseViewModel detailCourseViewModel =
+            Provider.of<DetailCourseViewModel>(context, listen: false);
+        detailCourseViewModel.changeCourseType(CourseTypeState.preview);
+
+        Navigator.pushNamed(context, DetailCourseScreen.routeName, arguments: myCourse);
+      },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
         child: Row(

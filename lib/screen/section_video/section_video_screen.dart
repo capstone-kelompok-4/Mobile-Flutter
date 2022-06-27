@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lms/constants/styles.dart';
-import 'package:lms/data/model/my_course_model.dart';
-import 'package:video_player/video_player.dart';
+import 'package:lms/data/model/course_detail_model.dart';
+import 'package:lms/screen/section_material/section_material_screen.dart';
+import 'package:lms/screen/section_video/section_video_view_model.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:provider/provider.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../utils/data_converter.dart';
 
 class SectionVideoScreen extends StatefulWidget {
-  static const String routeName = 'section_video_screen';
+  static const String routeName = '/section_video_screen';
   final DataMaterialCourse section;
   const SectionVideoScreen({Key? key, required this.section}) : super(key: key);
 
@@ -16,7 +20,6 @@ class SectionVideoScreen extends StatefulWidget {
 }
 
 class _SectionVideoScreenState extends State<SectionVideoScreen> {
-  late VideoPlayerController _videoController;
   late YoutubePlayerController _youtubeController;
 
   @override
@@ -31,12 +34,21 @@ class _SectionVideoScreenState extends State<SectionVideoScreen> {
       ),
     );
 
-    _videoController = VideoPlayerController.network(
-        'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4')
-      ..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-        setState(() {});
+    _youtubeController.addListener(() {
+      setState(() {
+        final SectionVideoViewModel sectionVideoViewModel =
+            Provider.of<SectionVideoViewModel>(context, listen: false);
+        sectionVideoViewModel.setRecentPlayingSeconds(
+          _youtubeController.value.position.inMilliseconds,
+          _youtubeController.value.metaData.duration.inMilliseconds,
+        );
       });
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      SystemChrome.setSystemUIOverlayStyle(overlayStyleWhite);
+    });
+
     super.initState();
   }
 
@@ -50,7 +62,6 @@ class _SectionVideoScreenState extends State<SectionVideoScreen> {
   @override
   void dispose() {
     _youtubeController.dispose();
-    _videoController.dispose();
 
     super.dispose();
   }
@@ -100,102 +111,134 @@ class _SectionVideoScreenState extends State<SectionVideoScreen> {
               ),
               bottom: PreferredSize(preferredSize: const Size(double.infinity, 232), child: player),
             ),
-            // floatingActionButton: FloatingActionButton(
-            //   onPressed: () {
-            //     setState(() {
-            //       _videoController.value.isPlaying
-            //           ? _videoController.pause()
-            //           : _videoController.play();
-            //     });
-            //   },
-            //   child: Icon(
-            //     _videoController.value.isPlaying ? Icons.pause : Icons.play_arrow,
-            //   ),
-            // ),
-            // body: Column(
-            //   crossAxisAlignment: CrossAxisAlignment.start,
-            //   children: [
-            //     if (_videoController.value.isInitialized)
-            //       SizedBox(
-            //         child: AspectRatio(
-            //           aspectRatio: _videoController.value.aspectRatio,
-            //           child: VideoPlayer(_videoController),
-            //         ),
-            //       )
-            //   ],
-            // ),
-            body: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+            bottomNavigationBar: Container(
+              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+              decoration: const BoxDecoration(
+                  border: Border(top: BorderSide(color: colorGreyLow, width: 3))),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  player,
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(context, SectionMaterialScreen.routeName,
+                          arguments: widget.section);
+                    },
+                    child: Row(
                       children: [
                         Text(
-                          "Timeline",
-                          style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                          "Read Materi",
+                          style: Theme.of(context).textTheme.subtitle1!.copyWith(
                                 color: colorTextBlue,
                                 fontWeight: FontWeight.bold,
                               ),
                         ),
                         const SizedBox(
-                          height: 16.0,
+                          width: 16.0,
                         ),
-                        ListView.separated(
-                          shrinkWrap: true,
-                          physics: const BouncingScrollPhysics(),
-                          separatorBuilder: (context, index) {
-                            return const SizedBox(
-                              height: 10,
-                            );
-                          },
-                          itemCount: widget.section.dataVideo?.timeline.length ?? 0,
-                          itemBuilder: (context, index) {
-                            final timeline = widget.section.dataVideo?.timeline[index];
-
-                            return ListTile(
-                              tileColor: colorBlueDark,
-                              onTap: () {
-                                _youtubeController.seekTo(
-                                  DataConverter.convertDuration(timeline?.from ?? "00:00:00"),
-                                );
-                              },
-                              title: Text(
-                                timeline?.name ?? "",
-                                style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                                      color: Colors.white,
-                                    ),
-                              ),
-                              trailing: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    timeline?.from ?? "00:00:00",
-                                    style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                                          color: Colors.white,
-                                        ),
-                                  ),
-                                  const SizedBox(
-                                    width: 16.0,
-                                  ),
-                                  const Icon(
-                                    Icons.play_circle_fill_outlined,
-                                    color: colorOrange,
-                                  )
-                                ],
-                              ),
-                            );
-                          },
-                        )
+                        Image.asset("assets/images/arrow_right_circle.png"),
                       ],
                     ),
-                  )
+                  ),
                 ],
               ),
+            ),
+            body: SingleChildScrollView(
+              child: Consumer<SectionVideoViewModel>(builder: (context, model, child) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    player,
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20.0, top: 20.0, right: 20.0),
+                      child: Text(
+                        "Video - ${widget.section.name}",
+                        style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                              color: colorTextBlue,
+                              fontWeight: FontWeight.bold,
+                            ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 16.0,
+                    ),
+                    LinearPercentIndicator(
+                      padding: EdgeInsets.zero,
+                      lineHeight: 8.0,
+                      progressColor: colorBlueDark,
+                      backgroundColor: colorBlueDark.withOpacity(.42),
+                      percent: model.percentagePlaying / 100,
+                    ),
+                    const SizedBox(
+                      height: 8.0,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Timeline",
+                            style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                                  color: colorTextBlue,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                          const SizedBox(
+                            height: 16.0,
+                          ),
+                          ListView.separated(
+                            shrinkWrap: true,
+                            physics: const BouncingScrollPhysics(),
+                            separatorBuilder: (context, index) {
+                              return const SizedBox(
+                                height: 10,
+                              );
+                            },
+                            itemCount: widget.section.dataVideo?.timelines.length ?? 0,
+                            itemBuilder: (context, index) {
+                              final timeline = widget.section.dataVideo?.timelines[index];
+
+                              return ListTile(
+                                tileColor: colorBlueLight3,
+                                onTap: () {
+                                  _youtubeController.seekTo(
+                                    DataConverter.convertDuration(timeline?.from ?? "00:00:00"),
+                                  );
+                                },
+                                title: Text(
+                                  timeline?.name ?? "",
+                                  style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                                        color: colorTextBlue,
+                                      ),
+                                ),
+                                trailing: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      timeline?.from ?? "00:00:00",
+                                      style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                                            color: colorTextBlue,
+                                          ),
+                                    ),
+                                    const SizedBox(
+                                      width: 16.0,
+                                    ),
+                                    const Icon(
+                                      Icons.play_circle_fill_outlined,
+                                      color: colorOrange,
+                                    )
+                                  ],
+                                ),
+                              );
+                            },
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                );
+              }),
             ),
           );
         },

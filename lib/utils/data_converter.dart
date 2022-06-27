@@ -1,4 +1,9 @@
 class DataConverter {
+  static double convertValueInRangeToPercentage(
+      double maxValue, double currentValue, double maxPercentage) {
+    return currentValue / maxValue * maxPercentage;
+  }
+
   static Duration convertDuration(String duration) {
     String parseTimeDuration =
         "${duration.substring(0, 2)}h${duration.substring(2, 5)}m${duration.substring(5, 8)}s";

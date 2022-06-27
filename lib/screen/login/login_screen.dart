@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lms/constants/styles.dart';
 import 'package:lms/screen/forgot_password/forgot_password_screen.dart';
 import 'package:lms/screen/main/main_screen.dart';
@@ -31,7 +32,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
-    // Provider.of<LoginViewModel>(context, listen: false).login("email", "password");
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      SystemChrome.setSystemUIOverlayStyle(overlayStyleWhite);
+    });
 
     super.initState();
   }

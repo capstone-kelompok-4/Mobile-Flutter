@@ -1,16 +1,17 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'my_course_model.g.dart';
+part 'course_detail_model.g.dart';
 
 @JsonSerializable()
-class MyCourseModel {
+class CourseDetailModel {
   List<DataMyCourse> data;
 
-  MyCourseModel({required this.data});
+  CourseDetailModel({required this.data});
 
-  factory MyCourseModel.fromJson(Map<String, dynamic> json) => _$MyCourseModelFromJson(json);
+  factory CourseDetailModel.fromJson(Map<String, dynamic> json) =>
+      _$CourseDetailModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$MyCourseModelToJson(this);
+  Map<String, dynamic> toJson() => _$CourseDetailModelToJson(this);
 }
 
 @JsonSerializable()
@@ -53,9 +54,9 @@ class DataMaterialCourse {
 @JsonSerializable()
 class DataVideoMaterial {
   String url;
-  List<DataTimelineVideo> timeline;
+  List<DataTimelineVideo> timelines;
 
-  DataVideoMaterial({required this.url, required this.timeline});
+  DataVideoMaterial({required this.url, required this.timelines});
 
   factory DataVideoMaterial.fromJson(Map<String, dynamic> json) =>
       _$DataVideoMaterialFromJson(json);

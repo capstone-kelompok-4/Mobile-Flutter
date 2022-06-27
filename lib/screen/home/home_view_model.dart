@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../data/model/my_course_model.dart';
+import '../../data/model/course_detail_model.dart';
 import '../../utils/result_state.dart';
 
 class HomeViewModel extends ChangeNotifier {
@@ -17,7 +17,7 @@ class HomeViewModel extends ChangeNotifier {
     changeMyCoursesState(ResultState.loading);
     try {
       final String raw = await rootBundle.loadString('assets/json/my_courses.json');
-      final MyCourseModel listMyCourse = MyCourseModel.fromJson(json.decode(raw));
+      final CourseDetailModel listMyCourse = CourseDetailModel.fromJson(json.decode(raw));
 
       _myCourses = listMyCourse.data;
       changeMyCoursesState(ResultState.hasData);

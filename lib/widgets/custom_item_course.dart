@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../constants/styles.dart';
-import '../data/model/my_course_model.dart';
+import '../data/model/course_detail_model.dart';
 
 class CustomItemCourse extends StatelessWidget {
   final DataMyCourse myCourse;

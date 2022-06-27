@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../constants/styles.dart';
-import '../../data/model/my_course_model.dart';
+import '../../data/model/course_detail_model.dart';
 
 class SectionQuizScreen extends StatefulWidget {
-  static const String routeName = 'section_quiz_screen';
+  static const String routeName = '/section_quiz_screen';
   final DataMaterialCourse section;
   const SectionQuizScreen({Key? key, required this.section}) : super(key: key);
 
@@ -17,6 +18,15 @@ class _SectionQuizScreenState extends State<SectionQuizScreen> {
   bool _valueB = false;
   bool _valueC = false;
   bool _valueD = false;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      SystemChrome.setSystemUIOverlayStyle(overlayStyleWhite);
+    });
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
