@@ -37,7 +37,8 @@ class _CustomItemThreadForumState extends State<CustomItemThreadForum> {
                 ClipOval(
                   child: Image.asset(
                     "assets/images/avatar_example_1.png",
-                    scale: .7,
+                    width: 40,
+                    height: 40,
                   ),
                 ),
                 const SizedBox(

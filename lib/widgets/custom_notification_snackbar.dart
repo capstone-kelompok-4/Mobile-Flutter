@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lms/constants/styles.dart';
 
 class CustomNotificationSnackbar {
   final BuildContext context;
@@ -14,7 +15,7 @@ class CustomNotificationSnackbar {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(24),
       ),
-      backgroundColor: Colors.blue[400],
+      backgroundColor: colorBlueDark,
       action: actionLabel == null
           ? null
           : SnackBarAction(label: actionLabel!, textColor: Colors.white, onPressed: action!),

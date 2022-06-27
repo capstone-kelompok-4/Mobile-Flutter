@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 const Color primaryColor = Color(0xFF007FFE);
@@ -9,6 +10,7 @@ Color grey400 = Colors.grey[400]!;
 Color grey300 = Colors.grey[300]!;
 Color grey200 = Colors.grey[200]!;
 
+const Color colorBlueLight3 = Color(0xFFD6DEEC);
 const Color colorBlueLight2 = Color(0xFFF7F7FC);
 const Color colorBlueLight = Color(0xFFF0F5FD);
 const Color colorBlueDark = Color(0xFF133461);
@@ -18,6 +20,25 @@ const Color inactiveMenu = Color(0xFF133461);
 const Color colorOrange = Color(0xFFFF6C00);
 const Color colorOrangeLight = Color(0xFFFFCEAA);
 const Color colorGrey = Color(0xFF9EA4AA);
+const Color colorGreyLow = Color(0xFFF5F5F5);
+
+const SystemUiOverlayStyle overlayStyleWhite = SystemUiOverlayStyle(
+  systemNavigationBarColor: Colors.white,
+  systemNavigationBarIconBrightness: Brightness.dark,
+  systemNavigationBarDividerColor: Colors.transparent,
+  statusBarColor: Colors.transparent,
+  statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
+  statusBarBrightness: Brightness.light, // For iOS (dark icons)
+);
+
+const SystemUiOverlayStyle overlayStyleBlue = SystemUiOverlayStyle(
+  systemNavigationBarColor: colorBlueDark,
+  systemNavigationBarIconBrightness: Brightness.light,
+  systemNavigationBarDividerColor: Colors.transparent,
+  statusBarColor: Colors.transparent,
+  statusBarIconBrightness: Brightness.light, // For Android (dark icons)
+  statusBarBrightness: Brightness.light, // For iOS (dark icons)
+);
 
 ThemeData lightTheme = ThemeData(
   primaryColor: primaryColor,

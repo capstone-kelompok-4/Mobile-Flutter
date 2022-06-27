@@ -1,19 +1,19 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'my_course_model.dart';
+part of 'course_detail_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-MyCourseModel _$MyCourseModelFromJson(Map<String, dynamic> json) =>
-    MyCourseModel(
+CourseDetailModel _$CourseDetailModelFromJson(Map<String, dynamic> json) =>
+    CourseDetailModel(
       data: (json['data'] as List<dynamic>)
           .map((e) => DataMyCourse.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$MyCourseModelToJson(MyCourseModel instance) =>
+Map<String, dynamic> _$CourseDetailModelToJson(CourseDetailModel instance) =>
     <String, dynamic>{
       'data': instance.data,
     };
@@ -59,7 +59,7 @@ Map<String, dynamic> _$DataMaterialCourseToJson(DataMaterialCourse instance) =>
 DataVideoMaterial _$DataVideoMaterialFromJson(Map<String, dynamic> json) =>
     DataVideoMaterial(
       url: json['url'] as String,
-      timeline: (json['timeline'] as List<dynamic>)
+      timelines: (json['timelines'] as List<dynamic>)
           .map((e) => DataTimelineVideo.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
@@ -67,7 +67,7 @@ DataVideoMaterial _$DataVideoMaterialFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$DataVideoMaterialToJson(DataVideoMaterial instance) =>
     <String, dynamic>{
       'url': instance.url,
-      'timeline': instance.timeline,
+      'timelines': instance.timelines,
     };
 
 DataTimelineVideo _$DataTimelineVideoFromJson(Map<String, dynamic> json) =>

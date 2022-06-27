@@ -1,6 +1,7 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lms/constants/styles.dart';
 import 'package:lms/screen/course/course_screen.dart';
 import 'package:lms/screen/forum/forum_screen.dart';
@@ -67,6 +68,10 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       () => _animationController.forward(),
     );
 
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      SystemChrome.setSystemUIOverlayStyle(overlayStyleWhite);
+    });
+
     super.initState();
   }
 
@@ -75,7 +80,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     return Consumer<MainViewModel>(builder: (context, model, child) {
       return Scaffold(
         body: _listWidgetMenu[model.indexBottomNav],
-        backgroundColor: Colors.white,
+        backgroundColor: model.indexBottomNav == 2 ? colorBlueDark : Colors.white,
         bottomNavigationBar: AnimatedBottomNavigationBar.builder(
           backgroundColor: Colors.white,
           itemCount: _listMenu.length,
@@ -106,7 +111,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
               ],
             );
           },
-          elevation: 3.0,
+          borderColor: colorGrey,
+          borderWidth: 1.0,
           gapLocation: GapLocation.none,
           splashColor: colorOrange,
           notchAndCornersAnimation: animation,

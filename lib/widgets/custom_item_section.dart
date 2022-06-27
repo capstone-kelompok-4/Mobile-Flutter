@@ -1,7 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:lms/data/model/my_course_model.dart';
+import 'package:lms/data/model/course_detail_model.dart';
+import 'package:lms/screen/section_material/section_material_screen.dart';
 import 'package:lms/screen/section_quiz/section_quiz_screen.dart';
 import 'package:lms/screen/section_video/section_video_screen.dart';
 
@@ -95,11 +96,11 @@ class _CustomItemSectionState extends State<CustomItemSection> with TickerProvid
                   color: colorOrange,
                 ),
                 const SizedBox(
-                  width: 8.0,
+                  width: 6.0,
                 ),
                 Expanded(
                   child: Text(
-                    "Play Video",
+                    "Video - ${widget.section.name}",
                     style: Theme.of(context).textTheme.subtitle2!.copyWith(
                           color: Colors.white,
                         ),
@@ -110,6 +111,8 @@ class _CustomItemSectionState extends State<CustomItemSection> with TickerProvid
           ),
         ),
         InkWell(
+          onTap: () => Navigator.pushNamed(context, SectionMaterialScreen.routeName,
+              arguments: widget.section),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 6.0),
             child: Row(
@@ -137,7 +140,7 @@ class _CustomItemSectionState extends State<CustomItemSection> with TickerProvid
                 ),
                 Expanded(
                   child: Text(
-                    "Unduh Materi",
+                    "Materi - ${widget.section.name}",
                     style: Theme.of(context).textTheme.subtitle2!.copyWith(
                           color: Colors.white,
                         ),
