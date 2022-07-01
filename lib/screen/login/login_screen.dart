@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lms/constants/styles.dart';
 import 'package:lms/screen/forgot_password/forgot_password_screen.dart';
+import 'package:lms/screen/login/login_view_model.dart';
 import 'package:lms/screen/main/main_screen.dart';
+import 'package:lms/utils/result_state.dart';
 import 'package:lms/widgets/custom_notification_snackbar.dart';
+import 'package:provider/provider.dart';
 import 'package:string_validator/string_validator.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -23,10 +26,20 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isPasswordVisible = false;
   bool _isRememberMe = false;
 
-  void _login() {
+  void _login() async {
     if (_formKey.currentState!.validate()) {
-      Navigator.pushReplacementNamed(context, MainScreen.routeName);
-      CustomNotificationSnackbar(context: context, message: "Login success");
+      final LoginViewModel loginViewModel = Provider.of<LoginViewModel>(context, listen: false);
+      final navigator = Navigator.of(context);
+
+      final result = await loginViewModel.login(_emailController.text, _passwordController.text);
+
+      if (result.token == null) {
+        CustomNotificationSnackbar(context: context, message: "Email atau password salah");
+        return;
+      }
+
+      CustomNotificationSnackbar(context: context, message: result.token!);
+      navigator.pushReplacementNamed(MainScreen.routeName);
     }
   }
 
@@ -168,8 +181,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         return "Password wajib diisi";
                       }
 
-                      if (value.length < 6) {
-                        return "Password tidak boleh kurang dari 6 karakter";
+                      if (value.length < 5) {
+                        return "Password tidak boleh kurang dari 5 karakter";
                       }
 
                       return null;
@@ -195,7 +208,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: _login,
+                      onPressed: () => _login(),
                       style: ElevatedButton.styleFrom(
                         primary: colorOrange,
                         shape: RoundedRectangleBorder(
@@ -211,6 +224,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
+                  Consumer<LoginViewModel>(builder: (context, model, child) {
+                    if (model.state == ResultState.loading) {
+                      return const LinearProgressIndicator(
+                        color: colorOrange,
+                        backgroundColor: colorGreyLow,
+                      );
+                    }
+
+                    return const SizedBox();
+                  }),
                   Center(
                     child: RichText(
                       text: TextSpan(

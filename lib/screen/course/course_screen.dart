@@ -156,16 +156,9 @@ class _CourseScreenState extends State<CourseScreen> with TickerProviderStateMix
                     itemCount: model.myCourses.length,
                     itemBuilder: (context, index) {
                       final myCourse = model.myCourses[index];
-                      Color color = colorOrangeLight;
-                      if (index % 2 == 0) {
-                        color = colorOrangeLight;
-                      } else {
-                        color = colorBgCourse;
-                      }
 
                       return CustomItemMyCourse(
                         myCourse: myCourse,
-                        color: color,
                       );
                     });
               }

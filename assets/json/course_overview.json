@@ -4,25 +4,25 @@
       "name": "English for Professional Specialization",
       "amountOfMaterial": 9,
       "rating": 4.0,
-      "image": "overview_1.png"
+      "image": "course_5.png"
     },
     {
       "name": "Strategical Master Digital Marketing",
       "amountOfMaterial": 9,
       "rating": 4.4,
-      "image": "overview_2.png"
+      "image": "course_6.png"
     },
     {
       "name": "Mastering Graphic & Motion Designer",
       "amountOfMaterial": 9,
       "rating": 4.9,
-      "image": "overview_3.png"
+      "image": "course_7.png"
     },
     {
       "name": "Big 4 Aduit & FInancial Analyst",
       "amountOfMaterial": 9,
       "rating": 3.0,
-      "image": "overview_4.png"
+      "image": "course_8.png"
     }
   ]
 }

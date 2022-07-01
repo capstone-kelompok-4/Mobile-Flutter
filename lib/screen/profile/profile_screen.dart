@@ -4,10 +4,13 @@ import 'package:lms/screen/certificate/certificate_screen.dart';
 import 'package:lms/screen/certificate_check/certificate_check_screen.dart';
 import 'package:lms/screen/faq/faq_screen.dart';
 import 'package:lms/screen/login/login_screen.dart';
+import 'package:lms/screen/login/login_view_model.dart';
+import 'package:lms/screen/profile/profile_view_model.dart';
 import 'package:lms/screen/profile_change_password/profile_change_password_screen.dart';
 import 'package:lms/screen/profile_edit/profile_edit_screen.dart';
 import 'package:lms/screen/tos/tos_screen.dart';
 import 'package:lms/widgets/custom_notification_snackbar.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -55,41 +58,43 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
         bottom: PreferredSize(
           preferredSize: const Size(double.infinity, 170),
-          child: Column(
-            children: [
-              ClipOval(
-                child: SizedBox.fromSize(
-                  size: const Size(85, 85),
-                  child: Image.asset("assets/images/avatar_example_1.png"),
+          child: Consumer<LoginViewModel>(builder: (context, model, child) {
+            return Column(
+              children: [
+                ClipOval(
+                  child: SizedBox.fromSize(
+                    size: const Size(85, 85),
+                    child: Image.asset("assets/images/avatar_example_1.png"),
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 16.0,
-              ),
-              Text(
-                "Dave Christian",
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-              const SizedBox(
-                height: 6.0,
-              ),
-              Text(
-                "Designer",
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                      color: Colors.white70,
-                      fontStyle: FontStyle.italic,
-                    ),
-              ),
-              const SizedBox(
-                height: 16.0,
-              ),
-            ],
-          ),
+                const SizedBox(
+                  height: 16.0,
+                ),
+                Text(
+                  model.userLogin.name ?? "",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+                const SizedBox(
+                  height: 6.0,
+                ),
+                Text(
+                  model.userLogin.specialist ?? "",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                        color: Colors.white70,
+                        fontStyle: FontStyle.italic,
+                      ),
+                ),
+                const SizedBox(
+                  height: 16.0,
+                ),
+              ],
+            );
+          }),
         ),
       ),
       body: SingleChildScrollView(
@@ -236,7 +241,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
               padding: const EdgeInsets.only(left: 8.0, top: 8.0),
               children: [
                 ListTile(
-                  onTap: () => Navigator.pushReplacementNamed(context, LoginScreen.routeName),
+                  onTap: () {
+                    final ProfileViewModel profileViewModel =
+                        Provider.of<ProfileViewModel>(context, listen: false);
+                    profileViewModel.logout();
+                    Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+                  },
                   leading: Image.asset(
                     "assets/images/icon_logout.png",
                   ),

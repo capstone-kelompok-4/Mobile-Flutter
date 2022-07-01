@@ -13,8 +13,10 @@ class CustomItemCourseOverview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
       padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
+      margin: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
+      decoration: BoxDecoration(border: Border.all(color: colorGreyLow)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -89,17 +91,20 @@ class CustomItemCourseOverview extends StatelessWidget {
                 const SizedBox(
                   height: 8.0,
                 ),
-                TextButton(
-                  onPressed: () {},
-                  style: TextButton.styleFrom(padding: EdgeInsets.zero),
-                  child: Text(
-                    "Read more",
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle2!
-                        .copyWith(fontSize: 12, color: colorTextBlue, fontWeight: FontWeight.bold),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      primary: colorBlueLight3,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+                    ),
+                    child: Text(
+                      "Read more",
+                      style: Theme.of(context).textTheme.button!.copyWith(color: colorTextBlue),
+                    ),
                   ),
-                ),
+                )
               ],
             ),
           )

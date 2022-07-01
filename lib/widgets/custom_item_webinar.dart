@@ -8,8 +8,11 @@ class CustomItemWebinar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(20.0),
-      child: Image.asset("assets/images/webinar_1.png"),
+      borderRadius: BorderRadius.circular(8.0),
+      child: Image.asset(
+        "assets/images/webinar_1.png",
+        fit: BoxFit.fill,
+      ),
     );
   }
 }
