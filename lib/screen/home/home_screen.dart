@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lms/constants/styles.dart';
 import 'package:lms/screen/home/home_view_model.dart';
+import 'package:lms/screen/login/login_view_model.dart';
 import 'package:lms/widgets/custom_item_webinar.dart';
 import 'package:provider/provider.dart';
 
@@ -56,105 +57,79 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Stack(
-                children: [
-                  Container(
-                    width: double.infinity,
-                    height: 280,
-                    padding: const EdgeInsets.all(18),
-                    decoration: BoxDecoration(
-                        color: colorBlueDark, borderRadius: BorderRadius.circular(25.0)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Consumer<LoginViewModel>(builder: (context, model, child) {
+                      return Expanded(
                           flex: 0,
-                          child: Text(
-                            "WELCOME ARYA!",
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline6!
-                                .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Expanded(
-                          flex: 0,
-                          child: Text(
-                            "Satisfy your curiosity with thousands of amazing courses. Upgrade your skills, deepen existing",
-                            style: Theme.of(context)
-                                .textTheme
-                                .subtitle2!
-                                .copyWith(color: Colors.white),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        ElevatedButton(
-                            onPressed: () {
-                              final MainViewModel mainViewModel =
-                                  Provider.of<MainViewModel>(context, listen: false);
+                          child: RichText(
+                            text: TextSpan(
+                                text: 'WELCOME ',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6!
+                                    .copyWith(color: colorTextBlue, fontWeight: FontWeight.bold),
+                                children: [
+                                  TextSpan(
+                                    text: model.userLogin.name?.toUpperCase() ?? "",
+                                    style: Theme.of(context).textTheme.headline6!.copyWith(
+                                        color: colorTextBlue, fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: '🎉',
+                                    style: Theme.of(context).textTheme.headline6!.copyWith(
+                                        color: colorTextBlue, fontWeight: FontWeight.bold),
+                                  ),
+                                ]),
+                          ));
+                    }),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Expanded(
+                      flex: 0,
+                      child: Text(
+                        "Satisfy your curiosity with thousands of amazing courses. Upgrade your skills, deepen existing",
+                        style:
+                            Theme.of(context).textTheme.subtitle2!.copyWith(color: colorTextBlue),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    OutlinedButton(
+                        onPressed: () {
+                          final MainViewModel mainViewModel =
+                              Provider.of<MainViewModel>(context, listen: false);
 
-                              mainViewModel.setIndexBottomNav(1);
-                            },
-                            style: ElevatedButton.styleFrom(
-                              primary: grey200,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(6.0),
-                              ),
-                            ),
-                            child: Text(
-                              "Get Started",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .subtitle2!
-                                  .copyWith(color: Colors.black, fontWeight: FontWeight.bold),
-                            )),
-                      ],
-                    ),
-                  ),
-                  Positioned(
-                    right: 0,
-                    bottom: 0,
-                    child: Image.asset(
-                      "assets/images/people_opening_laptop.png",
-                      width: 200,
-                    ),
-                  ),
-                ],
+                          mainViewModel.setIndexBottomNav(1);
+                        },
+                        style: OutlinedButton.styleFrom(
+                          primary: colorOrange,
+                          side: const BorderSide(color: colorOrange),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+                        ),
+                        child: Text(
+                          "Get's Start'",
+                          style: Theme.of(context).textTheme.button!.copyWith(color: colorOrange),
+                        )),
+                  ],
+                ),
               ),
               const SizedBox(
                 height: 16,
               ),
-              TextFormField(
-                decoration: InputDecoration(
-                  fillColor: Colors.white,
-                  filled: true,
-                  prefixIcon: const Icon(
-                    Icons.search,
-                    color: colorBlueDark,
-                  ),
-                  prefixStyle:
-                      Theme.of(context).textTheme.subtitle2!.copyWith(color: colorBlueDark),
-                  hintText: 'Mau belajar apa hari ini?',
-                  hintStyle: Theme.of(context).textTheme.subtitle2!.copyWith(color: colorBlueDark),
-                  border: OutlineInputBorder(
-                    borderSide: const BorderSide(color: colorBlueDark),
-                    borderRadius: BorderRadius.circular(16.0),
-                  ),
-                ),
-              ),
               const SizedBox(
-                height: 24,
+                height: 14,
               ),
               Text(
-                "Webinar Training",
+                "Training",
                 style: Theme.of(context)
                     .textTheme
-                    .headline6!
+                    .subtitle1!
                     .copyWith(color: Colors.black, fontWeight: FontWeight.bold),
               ),
               const SizedBox(
@@ -168,7 +143,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: EdgeInsets.zero,
                     scrollDirection: Axis.horizontal,
                     separatorBuilder: (context, index) {
-                      return const SizedBox();
+                      return const SizedBox(
+                        width: 16.0,
+                      );
                     },
                     itemCount: 5,
                     itemBuilder: (context, index) {
@@ -176,13 +153,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     }),
               ),
               const SizedBox(
-                height: 16,
+                height: 36.0,
+              ),
+              Text(
+                "Let's continue your progress",
+                style: Theme.of(context).textTheme.subtitle2!.copyWith(color: colorOrange),
               ),
               Text(
                 "Course History",
                 style: Theme.of(context)
                     .textTheme
-                    .headline6!
+                    .subtitle1!
                     .copyWith(color: Colors.black, fontWeight: FontWeight.bold),
               ),
               const SizedBox(
@@ -214,7 +195,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
 
                 return SizedBox(
-                  height: 185,
+                  height: 210,
                   child: ListView.separated(
                       shrinkWrap: true,
                       physics: const ClampingScrollPhysics(),

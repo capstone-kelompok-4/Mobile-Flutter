@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lms/screen/login/login_screen.dart';
+import 'package:lms/screen/main/main_screen.dart';
+import 'package:provider/provider.dart';
 
 import '../../constants/styles.dart';
+import '../login/login_view_model.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   static const String routeName = '/on_boarding_screen';
@@ -70,8 +73,18 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+                    onPressed: () async {
+                      final LoginViewModel loginViewModel =
+                          Provider.of<LoginViewModel>(context, listen: false);
+                      final navigator = Navigator.of(context);
+
+                      final result = await loginViewModel.getUserToken();
+                      if (result == null) {
+                        navigator.pushReplacementNamed(LoginScreen.routeName);
+                        return;
+                      }
+
+                      navigator.pushReplacementNamed(MainScreen.routeName);
                     },
                     style: ElevatedButton.styleFrom(
                       primary: grey200,

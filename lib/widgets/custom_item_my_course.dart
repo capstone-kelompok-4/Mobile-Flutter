@@ -10,9 +10,7 @@ import '../screen/detail_course/detail_course_screen.dart';
 
 class CustomItemMyCourse extends StatelessWidget {
   final DataMyCourse myCourse;
-  final Color color;
-  const CustomItemMyCourse({Key? key, required this.myCourse, required this.color})
-      : super(key: key);
+  const CustomItemMyCourse({Key? key, required this.myCourse}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +18,17 @@ class CustomItemMyCourse extends StatelessWidget {
       onTap: () {
         final DetailCourseViewModel detailCourseViewModel =
             Provider.of<DetailCourseViewModel>(context, listen: false);
-        detailCourseViewModel.changeCourseType(CourseTypeState.preview);
+        detailCourseViewModel.changeCourseType(CourseTypeState.request);
 
         Navigator.pushNamed(context, DetailCourseScreen.routeName, arguments: myCourse);
       },
-      child: Padding(
+      child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
+        margin: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
+        decoration: BoxDecoration(
+          border: Border.all(color: colorGreyLow),
+          borderRadius: BorderRadius.circular(6.0),
+        ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -58,9 +61,10 @@ class CustomItemMyCourse extends StatelessWidget {
                   ),
                   LinearPercentIndicator(
                     width: MediaQuery.of(context).size.width * .35,
+                    lineHeight: 6.0,
                     padding: EdgeInsets.zero,
-                    progressColor: color,
-                    backgroundColor: colorBlueDark,
+                    progressColor: colorBlueDark,
+                    backgroundColor: colorGreyLow,
                     barRadius: const Radius.circular(10),
                     percent: myCourse.progress / 100,
                   ),
