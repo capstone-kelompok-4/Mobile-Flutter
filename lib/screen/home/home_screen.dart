@@ -101,26 +101,24 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 16,
                     ),
                     OutlinedButton(
-                        onPressed: () {
-                          final MainViewModel mainViewModel =
-                              Provider.of<MainViewModel>(context, listen: false);
+                      onPressed: () {
+                        final MainViewModel mainViewModel =
+                            Provider.of<MainViewModel>(context, listen: false);
 
-                          mainViewModel.setIndexBottomNav(1);
-                        },
-                        style: OutlinedButton.styleFrom(
-                          primary: colorOrange,
-                          side: const BorderSide(color: colorOrange),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-                        ),
-                        child: Text(
-                          "Get's Start'",
-                          style: Theme.of(context).textTheme.button!.copyWith(color: colorOrange),
-                        )),
+                        mainViewModel.setIndexBottomNav(1);
+                      },
+                      style: OutlinedButton.styleFrom(
+                        primary: colorOrange,
+                        side: const BorderSide(color: colorOrange),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+                      ),
+                      child: Text(
+                        "Get's Start'",
+                        style: Theme.of(context).textTheme.button!.copyWith(color: colorOrange),
+                      ),
+                    ),
                   ],
                 ),
-              ),
-              const SizedBox(
-                height: 16,
               ),
               const SizedBox(
                 height: 14,
