@@ -2,11 +2,11 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/styles.dart';
-import '../../data/model/course_detail_model.dart';
+import '../../data/model/course_detail/course_detail_model.dart';
 
 class PreviewCourseUI extends StatefulWidget {
-  final DataMyCourse myCourse;
-  const PreviewCourseUI({Key? key, required this.myCourse}) : super(key: key);
+  final CourseDetailData course;
+  const PreviewCourseUI({Key? key, required this.course}) : super(key: key);
 
   @override
   State<PreviewCourseUI> createState() => _PreviewCourseUIState();
@@ -44,7 +44,7 @@ class _PreviewCourseUIState extends State<PreviewCourseUI> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                widget.myCourse.name,
+                widget.course.name,
                 style: Theme.of(context).textTheme.headline6!.copyWith(
                       color: colorTextBlue,
                       fontSize: 15,
@@ -69,7 +69,7 @@ class _PreviewCourseUIState extends State<PreviewCourseUI> {
                         width: 8.0,
                       ),
                       Text(
-                        "${widget.myCourse.materials.length} Materi",
+                        "${widget.course.sections.length} Materi",
                         style: Theme.of(context)
                             .textTheme
                             .subtitle2!
@@ -87,7 +87,7 @@ class _PreviewCourseUIState extends State<PreviewCourseUI> {
                         width: 8.0,
                       ),
                       Text(
-                        "${widget.myCourse.rating}",
+                        "${widget.course.rate}",
                         style: Theme.of(context).textTheme.subtitle2!.copyWith(
                             fontSize: 12, color: colorTextBlue, fontWeight: FontWeight.bold),
                       ),
@@ -113,7 +113,7 @@ class _PreviewCourseUIState extends State<PreviewCourseUI> {
               RichText(
                 textAlign: TextAlign.start,
                 text: TextSpan(
-                  text: widget.myCourse.description,
+                  text: widget.course.description,
                   style: Theme.of(context)
                       .textTheme
                       .subtitle2!
@@ -130,63 +130,7 @@ class _PreviewCourseUIState extends State<PreviewCourseUI> {
                 ),
               ),
               const SizedBox(
-                height: 32.0,
-              ),
-              Text(
-                "Mentor",
-                style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                      color: colorTextBlue,
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-              const SizedBox(
                 height: 8.0,
-              ),
-              Row(
-                children: [
-                  Container(
-                    width: 45,
-                    height: 45,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: colorBlueDark,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(50.0),
-                    ),
-                    child: ClipOval(
-                      child: Image.asset(
-                        "assets/images/avatar_blue_round.png",
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 8.0,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Ilham Akbar",
-                        style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                              color: colorTextBlue,
-                              fontWeight: FontWeight.bold,
-                            ),
-                      ),
-                      const SizedBox(
-                        height: 2.0,
-                      ),
-                      Text(
-                        "Senior UI Designer PT. ABCD Indonesia",
-                        style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                              color: colorTextBlue,
-                              fontStyle: FontStyle.italic,
-                            ),
-                      ),
-                    ],
-                  )
-                ],
               ),
             ],
           ),

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../../constants/styles.dart';
-import '../../data/model/course_detail_model.dart';
+import '../../data/model/course_detail/course_detail_model.dart';
 import '../../widgets/custom_item_section.dart';
 
 class LearningCourseUI extends StatefulWidget {
-  final DataMyCourse myCourse;
-  const LearningCourseUI({Key? key, required this.myCourse}) : super(key: key);
+  final CourseDetailData course;
+  const LearningCourseUI({Key? key, required this.course}) : super(key: key);
 
   @override
   State<LearningCourseUI> createState() => _LearningCourseUIState();
@@ -26,7 +26,7 @@ class _LearningCourseUIState extends State<LearningCourseUI> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                widget.myCourse.name,
+                widget.course.name,
                 style: Theme.of(context).textTheme.subtitle1!.copyWith(
                       color: colorTextBlue,
                       fontWeight: FontWeight.bold,
@@ -41,7 +41,7 @@ class _LearningCourseUIState extends State<LearningCourseUI> {
                 progressColor: colorOrange,
                 backgroundColor: colorBlueDark.withOpacity(.42),
                 barRadius: const Radius.circular(10),
-                percent: widget.myCourse.progress / 100,
+                percent: 40 / 100,
               ),
               const SizedBox(
                 height: 8.0,
@@ -58,7 +58,7 @@ class _LearningCourseUIState extends State<LearningCourseUI> {
                         ),
                   ),
                   Text(
-                    "${widget.myCourse.progress}%",
+                    "40%",
                     style: Theme.of(context).textTheme.subtitle1!.copyWith(
                           color: colorTextBlue,
                           fontWeight: FontWeight.bold,
@@ -119,9 +119,9 @@ class _LearningCourseUIState extends State<LearningCourseUI> {
                     height: 8.0,
                   );
                 },
-                itemCount: widget.myCourse.materials.length,
+                itemCount: widget.course.sections.length,
                 itemBuilder: (context, index) {
-                  final section = widget.myCourse.materials[index];
+                  final section = widget.course.sections[index];
                   return CustomItemSection(
                     section: section,
                   );

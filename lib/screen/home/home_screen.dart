@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lms/constants/styles.dart';
-import 'package:lms/screen/home/home_view_model.dart';
+import 'package:lms/screen/course/course_view_model.dart';
 import 'package:lms/screen/login/login_view_model.dart';
 import 'package:lms/widgets/custom_item_webinar.dart';
 import 'package:provider/provider.dart';
@@ -17,16 +17,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void didChangeDependencies() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      final HomeViewModel homeViewModel = Provider.of<HomeViewModel>(context, listen: false);
-
-      homeViewModel.getMyCourseFromJson();
-    });
-    super.didChangeDependencies();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,12 +64,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                     .copyWith(color: colorTextBlue, fontWeight: FontWeight.bold),
                                 children: [
                                   TextSpan(
-                                    text: model.userLogin.name?.toUpperCase() ?? "",
+                                    text: model.userLogin?.name.toUpperCase() ?? "",
                                     style: Theme.of(context).textTheme.headline6!.copyWith(
                                         color: colorTextBlue, fontWeight: FontWeight.bold),
                                   ),
                                   TextSpan(
-                                    text: '🎉',
+                                    text: ' 🎉',
                                     style: Theme.of(context).textTheme.headline6!.copyWith(
                                         color: colorTextBlue, fontWeight: FontWeight.bold),
                                   ),
@@ -167,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 16,
               ),
-              Consumer<HomeViewModel>(builder: (context, model, child) {
+              Consumer<CourseViewModel>(builder: (context, model, child) {
                 if (model.stateMyCourses == ResultState.loading) {
                   return const Padding(
                     padding: EdgeInsets.all(16),
@@ -205,7 +195,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                       itemCount: model.myCourses.length,
                       itemBuilder: (context, index) {
-                        final myCourse = model.myCourses[index];
+                        final myCourse = model.myCourses[index].course;
                         Color color = colorOrangeLight;
                         if (index % 2 == 0) {
                           color = colorOrangeLight;

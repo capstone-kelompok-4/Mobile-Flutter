@@ -4,8 +4,8 @@ import 'package:lms/data/preferences/user_preference.dart';
 import 'package:lms/utils/get_connection.dart';
 import 'package:lms/utils/result_state.dart';
 
-import '../../data/model/login_model.dart';
-import '../../data/model/user_model.dart';
+import '../../data/model/login/login_model.dart';
+import '../../data/model/user/user_model.dart';
 
 class LoginViewModel extends ChangeNotifier {
   final ApiService _apiService = ApiService();
@@ -15,11 +15,14 @@ class LoginViewModel extends ChangeNotifier {
   ResultState _state = ResultState.none;
   ResultState get state => _state;
 
+  ResultState _stateUser = ResultState.none;
+  ResultState get stateUser => _stateUser;
+
   String _token = "";
   String get token => _token;
 
-  UserDataModel _userLogin = UserDataModel(id: 0, email: "");
-  UserDataModel get userLogin => _userLogin;
+  UserDataModel? _userLogin;
+  UserDataModel? get userLogin => _userLogin;
 
   Future<LoginModel> login(String email, String password) async {
     changeState(ResultState.loading);
@@ -28,44 +31,63 @@ class LoginViewModel extends ChangeNotifier {
 
       if (!connection) {
         changeState(ResultState.error);
-        return LoginModel(token: null);
+        return LoginModel(timestamp: "", message: "Something wrong");
       }
 
       final result = await _apiService.login(email, password);
 
-      if (result.token == null) {
+      if (result.data == null) {
         changeState(ResultState.error);
         return result;
       }
 
-      _userPreference.setUserToken(result.token!);
-      getUser();
+      _userPreference.setUserToken(result.data!.token);
+      await getUserTokenPref();
+      await getUser();
 
       changeState(ResultState.hasData);
+
       return result;
     } catch (e) {
       changeState(ResultState.error);
-      return LoginModel(token: null);
+      return LoginModel(timestamp: "", message: "Something wrong");
     }
   }
 
-  Future<dynamic> getUser() async {
-    final result = await _userPreference.getUser;
+  Future<void> getUser() async {
+    changeStateUser(ResultState.loading);
+    try {
+      final result = await _apiService.getUser(token);
 
-    if (result != null) {
-      _userLogin = result as UserDataModel;
+      if (result.data == null) {
+        changeStateUser(ResultState.error);
+        return;
+      }
+
+      _userPreference.setUser(result.data!);
+      getUserPref();
+
+      changeStateUser(ResultState.hasData);
+    } catch (e) {
+      changeStateUser(ResultState.error);
     }
-
-    notifyListeners();
-    return result;
   }
 
-  Future<dynamic> getUserToken() async {
+  Future<dynamic> getUserTokenPref() async {
     final result = await _userPreference.getUserToken;
 
     if (result != null) {
       _token = result;
+      notifyListeners();
     }
+
+    return result;
+  }
+
+  Future<dynamic> getUserPref() async {
+    final result = await _userPreference.getUser;
+
+    _userLogin = result;
 
     notifyListeners();
     return result;
@@ -73,6 +95,11 @@ class LoginViewModel extends ChangeNotifier {
 
   void changeState(ResultState s) {
     _state = s;
+    notifyListeners();
+  }
+
+  void changeStateUser(ResultState s) {
+    _stateUser = s;
     notifyListeners();
   }
 }

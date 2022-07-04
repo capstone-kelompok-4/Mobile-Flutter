@@ -78,7 +78,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           Provider.of<LoginViewModel>(context, listen: false);
                       final navigator = Navigator.of(context);
 
-                      final result = await loginViewModel.getUserToken();
+                      final result = await loginViewModel.getUserTokenPref();
                       if (result == null) {
                         navigator.pushReplacementNamed(LoginScreen.routeName);
                         return;

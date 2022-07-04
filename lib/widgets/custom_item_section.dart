@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:lms/data/model/course_detail_model.dart';
+import 'package:lms/data/model/course_detail/course_detail_model.dart';
 import 'package:lms/screen/section_material/section_material_screen.dart';
 import 'package:lms/screen/section_quiz/section_quiz_screen.dart';
 import 'package:lms/screen/section_video/section_video_screen.dart';
@@ -9,7 +9,7 @@ import 'package:lms/screen/section_video/section_video_screen.dart';
 import '../constants/styles.dart';
 
 class CustomItemSection extends StatefulWidget {
-  final DataMaterialCourse section;
+  final CourseDetailDataSection section;
   const CustomItemSection({Key? key, required this.section}) : super(key: key);
 
   @override

@@ -29,17 +29,6 @@ class _CourseScreenState extends State<CourseScreen> with TickerProviderStateMix
   }
 
   @override
-  void didChangeDependencies() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      final CourseViewModel courseViewModel = Provider.of<CourseViewModel>(context, listen: false);
-
-      courseViewModel.getMyCourseFromJson();
-      courseViewModel.getCourseOverviewFromJson();
-    });
-    super.didChangeDependencies();
-  }
-
-  @override
   void dispose() {
     _tabController.dispose();
 
@@ -155,7 +144,7 @@ class _CourseScreenState extends State<CourseScreen> with TickerProviderStateMix
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: model.myCourses.length,
                     itemBuilder: (context, index) {
-                      final myCourse = model.myCourses[index];
+                      final myCourse = model.myCourses[index].course;
 
                       return CustomItemMyCourse(
                         myCourse: myCourse,

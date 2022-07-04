@@ -71,7 +71,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   height: 16.0,
                 ),
                 Text(
-                  model.userLogin.name ?? "",
+                  model.userLogin?.name ?? "",
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.subtitle1!.copyWith(
                         color: Colors.white,
@@ -82,7 +82,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   height: 6.0,
                 ),
                 Text(
-                  model.userLogin.specialist ?? "",
+                  model.userLogin?.userSpecialization.name ?? "",
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.subtitle2!.copyWith(
                         color: Colors.white70,

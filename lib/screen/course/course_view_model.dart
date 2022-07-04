@@ -1,49 +1,81 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:lms/data/model/course_detail_model.dart';
+import 'package:lms/data/api/api_service.dart';
+import 'package:lms/data/model/course_detail/course_detail_model.dart';
+import 'package:lms/data/model/course_taken/course_taken_model.dart';
 import 'package:lms/utils/course_state.dart';
 
-import '../../data/model/course_overview_model.dart';
+import '../../data/preferences/user_preference.dart';
+import '../../utils/get_connection.dart';
 import '../../utils/result_state.dart';
 
 class CourseViewModel extends ChangeNotifier {
+  final ApiService _apiService = ApiService();
+  final GetConnection _getConnection = GetConnection();
+  final UserPreference _userPreference = UserPreference();
+
   CourseState _courseState = CourseState.myCourse;
   CourseState get courseState => _courseState;
 
   ResultState _stateMyCourses = ResultState.none;
   ResultState get stateMyCourses => _stateMyCourses;
 
-  List<DataMyCourse> _myCourses = [];
-  List<DataMyCourse> get myCourses => _myCourses;
+  List<CourseTakenData> _myCourses = [];
+  List<CourseTakenData> get myCourses => _myCourses;
 
   ResultState _stateCourseOverview = ResultState.none;
   ResultState get stateCourseOverview => _stateCourseOverview;
 
-  List<DataCourseOverView> _courseOverview = [];
-  List<DataCourseOverView> get courseOverview => _courseOverview;
+  List<CourseDetailData> _courseOverview = [];
+  List<CourseDetailData> get courseOverview => _courseOverview;
 
-  void getMyCourseFromJson() async {
+  void getCourseTaken() async {
     changeMyCoursesState(ResultState.loading);
     try {
-      final String raw = await rootBundle.loadString('assets/json/my_courses.json');
-      final CourseDetailModel listMyCourse = CourseDetailModel.fromJson(json.decode(raw));
+      final connection = await _getConnection.getConnection();
 
-      _myCourses = listMyCourse.data;
+      if (!connection) {
+        changeMyCoursesState(ResultState.error);
+        return;
+      }
+
+      final token = await _userPreference.getUserToken;
+
+      final result = await _apiService.getCourseTaken(token);
+
+      if (result.timestamp.isEmpty) {
+        changeMyCoursesState(ResultState.error);
+        return;
+      }
+
+      _myCourses = result.data;
+
       changeMyCoursesState(ResultState.hasData);
     } catch (e) {
       changeMyCoursesState(ResultState.error);
     }
   }
 
-  void getCourseOverviewFromJson() async {
+  void getAllCourses() async {
     changeCourseOverviewState(ResultState.loading);
     try {
-      final String raw = await rootBundle.loadString('assets/json/course_overview.json');
-      final CourseOverviewModel listCourseOverview = CourseOverviewModel.fromJson(json.decode(raw));
+      final connection = await _getConnection.getConnection();
 
-      _courseOverview = listCourseOverview.data;
+      if (!connection) {
+        changeCourseOverviewState(ResultState.error);
+        return;
+      }
+
+      final token = await _userPreference.getUserToken;
+
+      final result = await _apiService.getAllCourses(token);
+
+      if (result.timestamp.isEmpty) {
+        changeCourseOverviewState(ResultState.error);
+        return;
+      }
+
+      _courseOverview = result.data;
+
       changeCourseOverviewState(ResultState.hasData);
     } catch (e) {
       changeCourseOverviewState(ResultState.error);

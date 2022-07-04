@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lms/constants/styles.dart';
-import 'package:lms/data/model/course_detail_model.dart';
+import 'package:lms/data/model/course_detail/course_detail_model.dart';
 import 'package:lms/screen/certificate/certificate_screen.dart';
 import 'package:lms/screen/certificate_check/certificate_check_screen.dart';
 import 'package:lms/screen/course/course_view_model.dart';
@@ -89,27 +89,27 @@ class MyApp extends StatelessWidget {
           }
           if (setting.name == DetailCourseScreen.routeName) {
             return PageRouteFadeTransition(
-              DetailCourseScreen(myCourse: setting.arguments as DataMyCourse),
+              DetailCourseScreen(id: setting.arguments as int),
             );
           }
           if (setting.name == SectionVideoScreen.routeName) {
             return PageRouteFadeTransition(
               SectionVideoScreen(
-                section: setting.arguments as DataMaterialCourse,
+                section: setting.arguments as CourseDetailDataSection,
               ),
             );
           }
           if (setting.name == SectionMaterialScreen.routeName) {
             return PageRouteFadeTransition(
               SectionMaterialScreen(
-                section: setting.arguments as DataMaterialCourse,
+                section: setting.arguments as CourseDetailDataSection,
               ),
             );
           }
           if (setting.name == SectionQuizScreen.routeName) {
             return PageRouteFadeTransition(
               SectionQuizScreen(
-                section: setting.arguments as DataMaterialCourse,
+                section: setting.arguments as CourseDetailDataSection,
               ),
             );
           }
