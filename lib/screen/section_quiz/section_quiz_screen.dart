@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../constants/styles.dart';
-import '../../data/model/course_detail_model.dart';
+import '../../data/model/course_detail/course_detail_model.dart';
 
 class SectionQuizScreen extends StatefulWidget {
   static const String routeName = '/section_quiz_screen';
-  final DataMaterialCourse section;
+  final CourseDetailDataSection section;
   const SectionQuizScreen({Key? key, required this.section}) : super(key: key);
 
   @override
@@ -14,13 +15,17 @@ class SectionQuizScreen extends StatefulWidget {
 }
 
 class _SectionQuizScreenState extends State<SectionQuizScreen> {
-  bool _valueA = false;
-  bool _valueB = false;
-  bool _valueC = false;
-  bool _valueD = false;
+  CourseDetailDataSectionMaterial? material;
+  late WebViewController _webController;
 
   @override
   void initState() {
+    final searchMaterial = widget.section.materials.where((material) => material.type == "QUIZ");
+
+    if (searchMaterial.isNotEmpty) {
+      material = searchMaterial.first;
+    }
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       SystemChrome.setSystemUIOverlayStyle(overlayStyleWhite);
     });
@@ -30,6 +35,7 @@ class _SectionQuizScreenState extends State<SectionQuizScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -89,163 +95,19 @@ class _SectionQuizScreenState extends State<SectionQuizScreen> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            color: colorBlueDark,
-            child: Wrap(
-              alignment: WrapAlignment.center,
-              children: List.generate(
-                10,
-                (index) => TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    "${index + 1}",
-                    style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                          color: index == 0 ? colorOrange : Colors.white,
-                        ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(30.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Manakah yang bukan merupakan software yang digunakan dalam UI/UX...",
-                  style: Theme.of(context)
-                      .textTheme
-                      .subtitle1!
-                      .copyWith(color: colorTextBlue, fontWeight: FontWeight.bold),
-                ),
-                CheckboxListTile(
-                  controlAffinity: ListTileControlAffinity.leading,
-                  contentPadding: EdgeInsets.zero,
-                  checkboxShape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  value: _valueA,
-                  onChanged: (value) {
-                    setState(() {
-                      _valueA = value!;
-                    });
-                  },
-                  title: Text(
-                    "Maze",
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle1!
-                        .copyWith(color: colorTextBlue, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                CheckboxListTile(
-                  controlAffinity: ListTileControlAffinity.leading,
-                  contentPadding: EdgeInsets.zero,
-                  checkboxShape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  value: _valueB,
-                  onChanged: (value) {
-                    setState(() {
-                      _valueB = value!;
-                    });
-                  },
-                  title: Text(
-                    "React",
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle1!
-                        .copyWith(color: colorTextBlue, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                CheckboxListTile(
-                  controlAffinity: ListTileControlAffinity.leading,
-                  contentPadding: EdgeInsets.zero,
-                  checkboxShape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  value: _valueC,
-                  onChanged: (value) {
-                    setState(() {
-                      _valueC = value!;
-                    });
-                  },
-                  title: Text(
-                    "Zeplin",
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle1!
-                        .copyWith(color: colorTextBlue, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                CheckboxListTile(
-                  controlAffinity: ListTileControlAffinity.leading,
-                  contentPadding: EdgeInsets.zero,
-                  checkboxShape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  value: _valueD,
-                  onChanged: (value) {
-                    setState(() {
-                      _valueD = value!;
-                    });
-                  },
-                  title: Text(
-                    "Figma",
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle1!
-                        .copyWith(color: colorTextBlue, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ElevatedButton(
-                      onPressed: null,
-                      style: ElevatedButton.styleFrom(
-                        primary: colorOrange,
-                        onSurface: colorBlueDark,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      child: Text(
-                        "Back",
-                        style: Theme.of(context).textTheme.button!.copyWith(
-                              color: Colors.white,
-                            ),
-                      ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        primary: colorOrange,
-                        onSurface: colorBlueDark,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      child: Text(
-                        "Next",
-                        style: Theme.of(context).textTheme.button!.copyWith(
-                              color: Colors.white,
-                            ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          )
-        ],
+      body: SizedBox(
+        height: double.infinity,
+        child: WebView(
+          initialUrl: material?.url ??
+              "https://docs.google.com/presentation/d/e/2PACX-1vSneupNyKmSiV9_7xSdfAL2lBQLTMm9bR0NWUDfycEUtjfx7AE0cwz2pTw_z8LkV1dYVr9o4rfoql1O/embed?frameborder=&slide=id.g1081a60370a_0_134",
+          javascriptMode: JavascriptMode.unrestricted,
+          onWebViewCreated: (controller) {
+            _webController = controller;
+          },
+          onPageStarted: (url) {
+            print('onload: $url');
+          },
+        ),
       ),
     );
   }

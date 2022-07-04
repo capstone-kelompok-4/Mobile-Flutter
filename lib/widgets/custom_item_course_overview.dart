@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:lms/data/model/course_detail/course_detail_model.dart';
+import 'package:provider/provider.dart';
 
 import '../constants/styles.dart';
-import '../data/model/course_overview_model.dart';
+import '../screen/course/course_view_model.dart';
+import '../screen/detail_course/detail_course_screen.dart';
+import '../screen/detail_course/detail_course_view_model.dart';
+import '../utils/course_type_state.dart';
 
 class CustomItemCourseOverview extends StatelessWidget {
   const CustomItemCourseOverview({
@@ -9,7 +14,7 @@ class CustomItemCourseOverview extends StatelessWidget {
     required this.courseOverview,
   }) : super(key: key);
 
-  final DataCourseOverView courseOverview;
+  final CourseDetailData courseOverview;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +29,7 @@ class CustomItemCourseOverview extends StatelessWidget {
             borderRadius: BorderRadius.circular(15), // Image border
             child: SizedBox.fromSize(
               size: const Size(92, 112),
-              child: Image.asset("assets/images/${courseOverview.image}"),
+              child: Image.asset("assets/images/course_1.png"),
             ),
           ),
           const SizedBox(
@@ -62,7 +67,7 @@ class CustomItemCourseOverview extends StatelessWidget {
                           width: 8.0,
                         ),
                         Text(
-                          "${courseOverview.amountOfMaterial} Materi",
+                          "${courseOverview.sections.length} Materi",
                           style: Theme.of(context)
                               .textTheme
                               .subtitle2!
@@ -80,7 +85,7 @@ class CustomItemCourseOverview extends StatelessWidget {
                           width: 8.0,
                         ),
                         Text(
-                          "${courseOverview.rating}",
+                          "${courseOverview.rate}",
                           style: Theme.of(context).textTheme.subtitle2!.copyWith(
                               fontSize: 12, color: colorTextBlue, fontWeight: FontWeight.bold),
                         ),
@@ -94,7 +99,24 @@ class CustomItemCourseOverview extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      final DetailCourseViewModel detailCourseViewModel =
+                          Provider.of<DetailCourseViewModel>(context, listen: false);
+                      final CourseViewModel courseViewModel =
+                          Provider.of<CourseViewModel>(context, listen: false);
+
+                      final searchMyCourse = courseViewModel.myCourses
+                          .where((course) => course.id == courseOverview.id);
+
+                      if (searchMyCourse.isNotEmpty) {
+                        detailCourseViewModel.changeCourseType(CourseTypeState.preview);
+                      } else {
+                        detailCourseViewModel.changeCourseType(CourseTypeState.request);
+                      }
+
+                      Navigator.pushNamed(context, DetailCourseScreen.routeName,
+                          arguments: courseOverview.id);
+                    },
                     style: ElevatedButton.styleFrom(
                       primary: colorBlueLight3,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),

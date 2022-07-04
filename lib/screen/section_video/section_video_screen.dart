@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lms/constants/styles.dart';
-import 'package:lms/data/model/course_detail_model.dart';
+import 'package:lms/data/model/course_detail/course_detail_model.dart';
 import 'package:lms/screen/section_material/section_material_screen.dart';
 import 'package:lms/screen/section_video/section_video_view_model.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -12,7 +12,7 @@ import '../../utils/data_converter.dart';
 
 class SectionVideoScreen extends StatefulWidget {
   static const String routeName = '/section_video_screen';
-  final DataMaterialCourse section;
+  final CourseDetailDataSection section;
   const SectionVideoScreen({Key? key, required this.section}) : super(key: key);
 
   @override
@@ -20,11 +20,19 @@ class SectionVideoScreen extends StatefulWidget {
 }
 
 class _SectionVideoScreenState extends State<SectionVideoScreen> {
+  CourseDetailDataSectionMaterial? material;
+  List dataTimeline = [];
   late YoutubePlayerController _youtubeController;
 
   @override
   void initState() {
-    String url = widget.section.dataVideo?.url ?? "https://www.youtube.com/watch?v=aDm5WZ3QiIE";
+    final searchMaterial = widget.section.materials.where((material) => material.type == "VIDEO");
+
+    if (searchMaterial.isNotEmpty) {
+      material = searchMaterial.first;
+    }
+
+    String url = material?.url ?? "https://www.youtube.com/watch?v=aDm5WZ3QiIE";
     _youtubeController = YoutubePlayerController(
       initialVideoId: YoutubePlayer.convertUrlToId(url)!,
       flags: const YoutubePlayerFlags(
@@ -171,71 +179,72 @@ class _SectionVideoScreenState extends State<SectionVideoScreen> {
                     const SizedBox(
                       height: 8.0,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Timeline",
-                            style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                                  color: colorTextBlue,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                          ),
-                          const SizedBox(
-                            height: 16.0,
-                          ),
-                          ListView.separated(
-                            shrinkWrap: true,
-                            physics: const BouncingScrollPhysics(),
-                            separatorBuilder: (context, index) {
-                              return const SizedBox(
-                                height: 10,
-                              );
-                            },
-                            itemCount: widget.section.dataVideo?.timelines.length ?? 0,
-                            itemBuilder: (context, index) {
-                              final timeline = widget.section.dataVideo?.timelines[index];
+                    if (dataTimeline.isNotEmpty)
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Timeline",
+                              style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                                    color: colorTextBlue,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                            const SizedBox(
+                              height: 16.0,
+                            ),
+                            ListView.separated(
+                              shrinkWrap: true,
+                              physics: const BouncingScrollPhysics(),
+                              separatorBuilder: (context, index) {
+                                return const SizedBox(
+                                  height: 10,
+                                );
+                              },
+                              itemCount: dataTimeline.length,
+                              itemBuilder: (context, index) {
+                                final timeline = dataTimeline[index];
 
-                              return ListTile(
-                                tileColor: colorBlueLight3,
-                                onTap: () {
-                                  _youtubeController.seekTo(
-                                    DataConverter.convertDuration(timeline?.from ?? "00:00:00"),
-                                  );
-                                },
-                                title: Text(
-                                  timeline?.name ?? "",
-                                  style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                                        color: colorTextBlue,
+                                return ListTile(
+                                  tileColor: colorBlueLight3,
+                                  onTap: () {
+                                    _youtubeController.seekTo(
+                                      DataConverter.convertDuration(timeline?.from ?? "00:00:00"),
+                                    );
+                                  },
+                                  title: Text(
+                                    timeline?.name ?? "",
+                                    style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                                          color: colorTextBlue,
+                                        ),
+                                  ),
+                                  trailing: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        timeline?.from ?? "00:00:00",
+                                        style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                                              color: colorTextBlue,
+                                            ),
                                       ),
-                                ),
-                                trailing: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      timeline?.from ?? "00:00:00",
-                                      style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                                            color: colorTextBlue,
-                                          ),
-                                    ),
-                                    const SizedBox(
-                                      width: 16.0,
-                                    ),
-                                    const Icon(
-                                      Icons.play_circle_fill_outlined,
-                                      color: colorOrange,
-                                    )
-                                  ],
-                                ),
-                              );
-                            },
-                          )
-                        ],
-                      ),
-                    )
+                                      const SizedBox(
+                                        width: 16.0,
+                                      ),
+                                      const Icon(
+                                        Icons.play_circle_fill_outlined,
+                                        color: colorOrange,
+                                      )
+                                    ],
+                                  ),
+                                );
+                              },
+                            )
+                          ],
+                        ),
+                      )
                   ],
                 );
               }),

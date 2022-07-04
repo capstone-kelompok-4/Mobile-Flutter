@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lms/constants/styles.dart';
 import 'package:lms/screen/course/course_screen.dart';
+import 'package:lms/screen/course/course_view_model.dart';
 import 'package:lms/screen/forum/forum_screen.dart';
+import 'package:lms/screen/login/login_view_model.dart';
 import 'package:lms/screen/main/main_view_model.dart';
 import 'package:lms/screen/profile/profile_screen.dart';
 import 'package:provider/provider.dart';
@@ -70,6 +72,13 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       SystemChrome.setSystemUIOverlayStyle(overlayStyleWhite);
+
+      final LoginViewModel loginViewModel = Provider.of<LoginViewModel>(context, listen: false);
+      final CourseViewModel courseViewModel = Provider.of<CourseViewModel>(context, listen: false);
+
+      loginViewModel.getUserPref();
+      courseViewModel.getCourseTaken();
+      courseViewModel.getAllCourses();
     });
 
     super.initState();

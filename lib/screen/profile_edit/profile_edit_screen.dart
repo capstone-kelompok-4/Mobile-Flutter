@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:string_validator/string_validator.dart';
 
 import '../../constants/styles.dart';
@@ -23,6 +26,82 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   final TextEditingController _provinceController = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
   final TextEditingController _zipCodeController = TextEditingController();
+
+  final ImagePicker _picker = ImagePicker();
+  XFile? _image;
+
+  Future<void> _chooseImage(ImageSource source) async {
+    final choseImage = await _picker.pickImage(source: source);
+    setState(() {
+      _image = choseImage;
+    });
+  }
+
+  void _pickImage() {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10.0),
+          topRight: Radius.circular(10.0),
+        ),
+      ),
+      builder: (context) => StatefulBuilder(
+        builder: (context, setState) => Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Select from:",
+                style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                      color: colorTextBlue,
+                      fontWeight: FontWeight.w600,
+                    ),
+              ),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    _chooseImage(ImageSource.gallery);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: colorOrange,
+                  ),
+                  icon: const Icon(Icons.photo_library_outlined),
+                  label: Text(
+                    "Gallery",
+                    style: Theme.of(context).textTheme.button!.copyWith(
+                          color: Colors.white,
+                        ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    _chooseImage(ImageSource.camera);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: colorOrange,
+                  ),
+                  icon: const Icon(Icons.camera_alt_outlined),
+                  label: Text(
+                    "Camera",
+                    style: Theme.of(context).textTheme.button!.copyWith(
+                          color: Colors.white,
+                        ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
   void _updateProfile() {
     if (_formKey.currentState!.validate()) {
@@ -117,10 +196,21 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                       height: 32.0,
                     ),
                     Center(
-                      child: ClipOval(
-                        child: SizedBox.fromSize(
-                          size: const Size(85, 85),
-                          child: Image.asset("assets/images/avatar_example_1.png"),
+                      child: GestureDetector(
+                        onTap: () => _pickImage(),
+                        child: ClipOval(
+                          child: SizedBox.fromSize(
+                            size: const Size(85, 85),
+                            child: _image != null
+                                ? Image.file(
+                                    File(_image!.path),
+                                    fit: BoxFit.cover,
+                                  )
+                                : Image.asset(
+                                    "assets/images/avatar_example_1.png",
+                                    fit: BoxFit.cover,
+                                  ),
+                          ),
                         ),
                       ),
                     ),

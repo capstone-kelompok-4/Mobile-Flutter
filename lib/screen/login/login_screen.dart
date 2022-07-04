@@ -33,12 +33,15 @@ class _LoginScreenState extends State<LoginScreen> {
 
       final result = await loginViewModel.login(_emailController.text, _passwordController.text);
 
-      if (result.token == null) {
+      if (result.data == null) {
         CustomNotificationSnackbar(context: context, message: "Email atau password salah");
         return;
       }
 
-      CustomNotificationSnackbar(context: context, message: result.token!);
+      CustomNotificationSnackbar(
+        context: context,
+        message: "Welcome ${loginViewModel.userLogin?.name ?? ""}",
+      );
       navigator.pushReplacementNamed(MainScreen.routeName);
     }
   }

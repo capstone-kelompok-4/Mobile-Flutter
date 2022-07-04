@@ -5,11 +5,11 @@ import 'package:lms/utils/data_converter.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../constants/styles.dart';
-import '../../data/model/course_detail_model.dart';
+import '../../data/model/course_detail/course_detail_model.dart';
 
 class SectionMaterialScreen extends StatefulWidget {
   static const String routeName = '/section_material_screen';
-  final DataMaterialCourse section;
+  final CourseDetailDataSection section;
   const SectionMaterialScreen({Key? key, required this.section}) : super(key: key);
 
   @override
@@ -17,12 +17,19 @@ class SectionMaterialScreen extends StatefulWidget {
 }
 
 class _SectionMaterialScreenState extends State<SectionMaterialScreen> {
+  CourseDetailDataSectionMaterial? material;
   late WebViewController _webController;
   final ScrollController _scrollController = ScrollController();
   double _percentageScroll = 0;
 
   @override
   void initState() {
+    final searchMaterial = widget.section.materials.where((material) => material.type == "SLIDE");
+
+    if (searchMaterial.isNotEmpty) {
+      material = searchMaterial.first;
+    }
+
     _scrollController.addListener(() {
       setState(() {
         _percentageScroll = DataConverter.convertValueInRangeToPercentage(
@@ -143,7 +150,7 @@ class _SectionMaterialScreenState extends State<SectionMaterialScreen> {
       body: SizedBox(
         height: size.width < 500 ? 300 : double.infinity,
         child: WebView(
-          initialUrl:
+          initialUrl: material?.url ??
               "https://docs.google.com/presentation/d/e/2PACX-1vSneupNyKmSiV9_7xSdfAL2lBQLTMm9bR0NWUDfycEUtjfx7AE0cwz2pTw_z8LkV1dYVr9o4rfoql1O/embed?frameborder=&slide=id.g1081a60370a_0_134",
           javascriptMode: JavascriptMode.unrestricted,
           onWebViewCreated: (controller) {
