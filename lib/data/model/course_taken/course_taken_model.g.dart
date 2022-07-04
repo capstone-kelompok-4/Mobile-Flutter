@@ -25,7 +25,7 @@ Map<String, dynamic> _$CourseTakenModelToJson(CourseTakenModel instance) =>
 CourseTakenData _$CourseTakenDataFromJson(Map<String, dynamic> json) =>
     CourseTakenData(
       id: json['id'] as int,
-      rate: (json['rate'] as num).toDouble(),
+      rate: (json['rate'] as num?)?.toDouble(),
       takenAt: json['taken_at'] as String,
       course: CourseDetailData.fromJson(
           json['course_take'] as Map<String, dynamic>),
