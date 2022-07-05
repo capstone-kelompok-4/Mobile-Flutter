@@ -128,4 +128,34 @@ class ApiService {
       return CourseDetailModel(timestamp: "", message: ex.message);
     }
   }
+
+  Future<UserModel> editProfile(
+      String token, String name, String phone, String imageUrl, UserDataAddress address) async {
+    try {
+      Response response = await _dio.request(
+        "/users/edit",
+        options: Options(
+          method: 'PUT',
+          headers: {"Authorization": "Bearer $token"},
+        ),
+        data: {
+          "name": name,
+          "phone_number": phone,
+          "image_url": imageUrl,
+          "address": address.toJson()
+        },
+      );
+
+      if (response.statusCode == 200) {
+        return UserModel.fromJson(response.data);
+      } else {
+        return UserModel(timestamp: "", message: "Failed to login");
+      }
+    } on DioError catch (ex) {
+      if (ex.type == DioErrorType.connectTimeout) {
+        return UserModel(timestamp: "", message: "Connection timeout");
+      }
+      return UserModel(timestamp: "", message: ex.message);
+    }
+  }
 }

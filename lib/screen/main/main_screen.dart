@@ -9,6 +9,7 @@ import 'package:lms/screen/forum/forum_screen.dart';
 import 'package:lms/screen/login/login_view_model.dart';
 import 'package:lms/screen/main/main_view_model.dart';
 import 'package:lms/screen/profile/profile_screen.dart';
+import 'package:lms/utils/check_user.dart';
 import 'package:provider/provider.dart';
 
 import '../home/home_screen.dart';
@@ -82,6 +83,15 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     });
 
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      await CheckUser.isLogin(context);
+    });
+
+    super.didChangeDependencies();
   }
 
   @override
