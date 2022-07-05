@@ -19,6 +19,7 @@ import 'package:lms/screen/main/main_view_model.dart';
 import 'package:lms/screen/on_boarding/on_boarding_screen.dart';
 import 'package:lms/screen/profile/profile_view_model.dart';
 import 'package:lms/screen/profile_change_password/profile_change_password_screen.dart';
+import 'package:lms/screen/profile_change_password/profile_change_password_view_model.dart';
 import 'package:lms/screen/profile_edit/profile_edit_screen.dart';
 import 'package:lms/screen/profile_edit/profile_edit_view_model.dart';
 import 'package:lms/screen/register/register_screen.dart';
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => DetailCourseViewModel()),
         ChangeNotifierProvider(create: (context) => ProfileViewModel()),
         ChangeNotifierProvider(create: (context) => ProfileEditViewModel()),
+        ChangeNotifierProvider(create: (context) => ProfileChangePasswordViewModel()),
         ChangeNotifierProvider(create: (context) => FaqViewModel()),
       ],
       child: MaterialApp(
