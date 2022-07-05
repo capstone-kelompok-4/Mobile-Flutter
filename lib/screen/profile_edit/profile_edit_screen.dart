@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:lms/data/model/user/user_model.dart';
 import 'package:lms/screen/login/login_view_model.dart';
 import 'package:lms/screen/profile_edit/profile_edit_view_model.dart';
+import 'package:lms/utils/check_user.dart';
 import 'package:provider/provider.dart';
 import 'package:string_validator/string_validator.dart';
 
@@ -114,6 +115,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
           Provider.of<ProfileEditViewModel>(context, listen: false);
       final LoginViewModel loginViewModel = Provider.of<LoginViewModel>(context, listen: false);
 
+      profileEditViewModel.changeState(ResultState.loading);
+      await CheckUser.isLogin(context);
+
       final result = await profileEditViewModel.editProfile(
         loginViewModel.userLogin!.id,
         _nameController.text,
@@ -187,20 +191,23 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              ElevatedButton(
-                onPressed: model.state == ResultState.loading ? null : () => _updateProfile(),
-                style: ElevatedButton.styleFrom(
-                  primary: colorOrange,
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6.0),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: model.state == ResultState.loading ? null : () => _updateProfile(),
+                  style: ElevatedButton.styleFrom(
+                    primary: colorOrange,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(6.0),
+                    ),
                   ),
-                ),
-                child: Text(
-                  "Simpan",
-                  style: Theme.of(context).textTheme.button!.copyWith(
-                        color: Colors.white,
-                      ),
+                  child: Text(
+                    "Simpan",
+                    style: Theme.of(context).textTheme.button!.copyWith(
+                          color: Colors.white,
+                        ),
+                  ),
                 ),
               ),
               if (model.state == ResultState.loading)

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:lms/screen/profile_change_password/profile_change_password_view_model.dart';
 import 'package:lms/widgets/custom_notification_snackbar.dart';
+import 'package:provider/provider.dart';
 
 import '../../constants/styles.dart';
+import '../../utils/check_user.dart';
+import '../../utils/result_state.dart';
 
 class ProfileChangePassword extends StatefulWidget {
   static const String routeName = '/profile_change_password_screen';
@@ -17,11 +21,24 @@ class _ProfileChangePasswordState extends State<ProfileChangePassword> {
   final TextEditingController _newPasswordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
 
-  void _changePassword() {
+  void _changePassword() async {
     if (_formKey.currentState!.validate()) {
       if (_newPasswordController.text != _confirmPasswordController.text) {
         CustomNotificationSnackbar(
             context: context, message: "Password baru dan konfirmasi password tidak sama");
+        return;
+      }
+
+      final ProfileChangePasswordViewModel profileChangePasswordViewModel =
+          Provider.of(context, listen: false);
+      profileChangePasswordViewModel.changeState(ResultState.loading);
+      await CheckUser.isLogin(context);
+
+      final result = await profileChangePasswordViewModel.changePassword(
+          _currentPasswordController.text, _newPasswordController.text);
+
+      if (result.data == null) {
+        CustomNotificationSnackbar(context: context, message: result.message);
         return;
       }
 
@@ -56,26 +73,42 @@ class _ProfileChangePasswordState extends State<ProfileChangePassword> {
               ),
         ),
       ),
-      bottomNavigationBar: Container(
-        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 40.0),
-        color: Colors.white,
-        child: ElevatedButton(
-          onPressed: () => _changePassword(),
-          style: ElevatedButton.styleFrom(
-            primary: colorOrange,
-            elevation: 0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(6.0),
-            ),
-          ),
-          child: Text(
-            "Simpan",
-            style: Theme.of(context).textTheme.button!.copyWith(
-                  color: Colors.white,
+      bottomNavigationBar:
+          Consumer<ProfileChangePasswordViewModel>(builder: (context, model, child) {
+        return Container(
+          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 40.0),
+          color: Colors.white,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: model.state == ResultState.loading ? null : () => _changePassword(),
+                  style: ElevatedButton.styleFrom(
+                    primary: colorOrange,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(6.0),
+                    ),
+                  ),
+                  child: Text(
+                    "Simpan",
+                    style: Theme.of(context).textTheme.button!.copyWith(
+                          color: Colors.white,
+                        ),
+                  ),
                 ),
+              ),
+              if (model.state == ResultState.loading)
+                const LinearProgressIndicator(
+                  color: colorOrange,
+                  backgroundColor: colorGreyLow,
+                ),
+            ],
           ),
-        ),
-      ),
+        );
+      }),
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
@@ -122,8 +155,8 @@ class _ProfileChangePasswordState extends State<ProfileChangePassword> {
                       return "Password saat ini wajib diisi";
                     }
 
-                    if (value.length < 6) {
-                      return "Password saat ini tidak boleh kurang dari 6 karakter";
+                    if (value.length < 5) {
+                      return "Password saat ini tidak boleh kurang dari 5 karakter";
                     }
 
                     return null;
@@ -167,8 +200,8 @@ class _ProfileChangePasswordState extends State<ProfileChangePassword> {
                       return "Password baru wajib diisi";
                     }
 
-                    if (value.length < 6) {
-                      return "Password baru tidak boleh kurang dari 6 karakter";
+                    if (value.length < 5) {
+                      return "Password baru tidak boleh kurang dari 5 karakter";
                     }
 
                     return null;
@@ -213,8 +246,12 @@ class _ProfileChangePasswordState extends State<ProfileChangePassword> {
                       return "Konfirmasi password wajib diisi";
                     }
 
-                    if (value.length < 6) {
-                      return "Konfirmasi password tidak boleh kurang dari 6 karakter";
+                    if (value.length < 5) {
+                      return "Konfirmasi password tidak boleh kurang dari 5 karakter";
+                    }
+
+                    if (value != _newPasswordController.text) {
+                      return "Password baru dan konfirmasi password tidak sama";
                     }
 
                     return null;

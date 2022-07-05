@@ -149,7 +149,37 @@ class ApiService {
       if (response.statusCode == 200) {
         return UserModel.fromJson(response.data);
       } else {
-        return UserModel(timestamp: "", message: "Failed to login");
+        return UserModel(timestamp: "", message: "Failed to update");
+      }
+    } on DioError catch (ex) {
+      if (ex.type == DioErrorType.connectTimeout) {
+        return UserModel(timestamp: "", message: "Connection timeout");
+      }
+      return UserModel(timestamp: "", message: ex.message);
+    }
+  }
+
+  Future<UserModel> changePassword(String token, String currentPassword, String newPassword) async {
+    try {
+      Response response = await _dio.request(
+        "/users/change-password",
+        options: Options(
+          method: 'PUT',
+          validateStatus: (status) {
+            return status! <= 500;
+          },
+          headers: {"Authorization": "Bearer $token"},
+        ),
+        data: {
+          "current_password": currentPassword,
+          "new_password": newPassword,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        return UserModel.fromJson(response.data);
+      } else {
+        return UserModel.fromJson(response.data);
       }
     } on DioError catch (ex) {
       if (ex.type == DioErrorType.connectTimeout) {
