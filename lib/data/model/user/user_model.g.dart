@@ -24,9 +24,9 @@ UserDataModel _$UserDataModelFromJson(Map<String, dynamic> json) =>
     UserDataModel(
       id: json['id'] as int,
       name: json['name'] as String,
-      username: json['username'] as String,
-      phoneNumber: json['phone_number'] as String,
-      imageUrl: json['image_url'] as String,
+      email: json['username'] as String,
+      phoneNumber: json['phone_number'] as String?,
+      imageUrl: json['image_url'] as String?,
       roles: (json['roles'] as List<dynamic>)
           .map((e) => UserDataRole.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -40,7 +40,7 @@ Map<String, dynamic> _$UserDataModelToJson(UserDataModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'username': instance.username,
+      'username': instance.email,
       'phone_number': instance.phoneNumber,
       'image_url': instance.imageUrl,
       'roles': instance.roles,
@@ -75,11 +75,11 @@ Map<String, dynamic> _$UserDataSpecializationToJson(
 
 UserDataAddress _$UserDataAddressFromJson(Map<String, dynamic> json) =>
     UserDataAddress(
-      detailAddress: json['detail_address'] as String,
-      country: json['country'] as String,
-      stateProvince: json['state_province'] as String,
-      city: json['city'] as String,
-      zipCode: json['zip_code'] as String,
+      detailAddress: json['detail_address'] as String?,
+      country: json['country'] as String?,
+      stateProvince: json['state_province'] as String?,
+      city: json['city'] as String?,
+      zipCode: json['zip_code'] as String?,
     );
 
 Map<String, dynamic> _$UserDataAddressToJson(UserDataAddress instance) =>

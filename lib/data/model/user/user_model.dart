@@ -19,11 +19,12 @@ class UserModel {
 class UserDataModel {
   int id;
   String name;
-  String username;
+  @JsonKey(name: 'username')
+  String email;
   @JsonKey(name: 'phone_number')
-  String phoneNumber;
+  String? phoneNumber;
   @JsonKey(name: 'image_url')
-  String imageUrl;
+  String? imageUrl;
   List<UserDataRole> roles;
   @JsonKey(name: 'user_specialization')
   UserDataSpecialization userSpecialization;
@@ -32,9 +33,9 @@ class UserDataModel {
   UserDataModel({
     required this.id,
     required this.name,
-    required this.username,
-    required this.phoneNumber,
-    required this.imageUrl,
+    required this.email,
+    this.phoneNumber,
+    this.imageUrl,
     required this.roles,
     required this.userSpecialization,
     required this.address,
@@ -73,20 +74,20 @@ class UserDataSpecialization {
 @JsonSerializable()
 class UserDataAddress {
   @JsonKey(name: 'detail_address')
-  String detailAddress;
-  String country;
+  String? detailAddress;
+  String? country;
   @JsonKey(name: 'state_province')
-  String stateProvince;
-  String city;
+  String? stateProvince;
+  String? city;
   @JsonKey(name: 'zip_code')
-  String zipCode;
+  String? zipCode;
 
   UserDataAddress({
-    required this.detailAddress,
-    required this.country,
-    required this.stateProvince,
-    required this.city,
-    required this.zipCode,
+    this.detailAddress,
+    this.country,
+    this.stateProvince,
+    this.city,
+    this.zipCode,
   });
 
   factory UserDataAddress.fromJson(Map<String, dynamic> json) => _$UserDataAddressFromJson(json);

@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:lms/constants/styles.dart';
 import 'package:lms/data/model/course_detail/course_detail_model.dart';
@@ -19,6 +20,7 @@ import 'package:lms/screen/on_boarding/on_boarding_screen.dart';
 import 'package:lms/screen/profile/profile_view_model.dart';
 import 'package:lms/screen/profile_change_password/profile_change_password_screen.dart';
 import 'package:lms/screen/profile_edit/profile_edit_screen.dart';
+import 'package:lms/screen/profile_edit/profile_edit_view_model.dart';
 import 'package:lms/screen/register/register_screen.dart';
 import 'package:lms/screen/section_material/section_material_screen.dart';
 import 'package:lms/screen/section_quiz/section_quiz_screen.dart';
@@ -30,7 +32,15 @@ import 'package:lms/screen/tos/tos_screen.dart';
 import 'package:lms/utils/page_route_fade_transition.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+import 'firebase_options.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MyApp());
 }
 
@@ -49,6 +59,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => SectionQuizViewModel()),
         ChangeNotifierProvider(create: (context) => DetailCourseViewModel()),
         ChangeNotifierProvider(create: (context) => ProfileViewModel()),
+        ChangeNotifierProvider(create: (context) => ProfileEditViewModel()),
         ChangeNotifierProvider(create: (context) => FaqViewModel()),
       ],
       child: MaterialApp(

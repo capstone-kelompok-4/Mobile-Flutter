@@ -54,22 +54,25 @@ class LoginViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> getUser() async {
+  Future<UserDataModel?> getUser() async {
     changeStateUser(ResultState.loading);
     try {
-      final result = await _apiService.getUser(token);
+      final result = await _apiService.getUser(_token);
 
       if (result.data == null) {
         changeStateUser(ResultState.error);
-        return;
+        return result.data;
       }
 
       _userPreference.setUser(result.data!);
       getUserPref();
 
       changeStateUser(ResultState.hasData);
+      print(_token);
+      return result.data;
     } catch (e) {
       changeStateUser(ResultState.error);
+      return null;
     }
   }
 

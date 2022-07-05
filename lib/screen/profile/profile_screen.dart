@@ -59,12 +59,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
         bottom: PreferredSize(
           preferredSize: const Size(double.infinity, 170),
           child: Consumer<LoginViewModel>(builder: (context, model, child) {
+            final user = model.userLogin;
+
             return Column(
               children: [
                 ClipOval(
                   child: SizedBox.fromSize(
                     size: const Size(85, 85),
-                    child: Image.asset("assets/images/avatar_example_1.png"),
+                    child: user?.imageUrl != null && user!.imageUrl!.isNotEmpty
+                        ? Image.network(
+                            user.imageUrl!,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.asset(
+                            "assets/images/avatar_example_1.png",
+                            fit: BoxFit.cover,
+                          ),
                   ),
                 ),
                 const SizedBox(

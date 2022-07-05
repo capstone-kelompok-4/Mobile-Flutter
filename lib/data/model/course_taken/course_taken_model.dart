@@ -24,7 +24,7 @@ class CourseTakenModel {
 @JsonSerializable()
 class CourseTakenData {
   int id;
-  double rate;
+  double? rate;
   @JsonKey(name: 'taken_at')
   String takenAt;
   @JsonKey(name: 'course_take')

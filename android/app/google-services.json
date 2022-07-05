@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "318659695825",
+    "firebase_url": "https://lms-capstone-alterra-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "lms-capstone-alterra",
+    "storage_bucket": "lms-capstone-alterra.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:318659695825:android:1c21d266baf03e85f8e1f0",
+        "android_client_info": {
+          "package_name": "com.fourthsense.lms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "318659695825-c6m002ml34ifmi6angeke88kgt8ede0i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0OLBngtR0PZc7eb3rv06kepkkU-YneLI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "318659695825-c6m002ml34ifmi6angeke88kgt8ede0i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
