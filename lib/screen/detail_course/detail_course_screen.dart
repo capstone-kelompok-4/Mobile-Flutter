@@ -54,15 +54,17 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
               padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
               color: Colors.white,
               child: ElevatedButton(
-                onPressed: () {
-                  final DetailCourseViewModel detailCourseViewModel =
-                      Provider.of<DetailCourseViewModel>(context, listen: false);
-                  if (model.courseTypeState == CourseTypeState.preview) {
-                    detailCourseViewModel.changeCourseType(CourseTypeState.learning);
-                  } else {
-                    Navigator.pushNamed(context, CourseRequestFormScreen.routeName);
-                  }
-                },
+                onPressed: model.state == ResultState.loading
+                    ? null
+                    : () {
+                        final DetailCourseViewModel detailCourseViewModel =
+                            Provider.of<DetailCourseViewModel>(context, listen: false);
+                        if (model.courseTypeState == CourseTypeState.preview) {
+                          detailCourseViewModel.changeCourseType(CourseTypeState.learning);
+                        } else {
+                          Navigator.pushNamed(context, CourseRequestFormScreen.routeName);
+                        }
+                      },
                 style: ElevatedButton.styleFrom(
                   primary: colorOrange,
                   elevation: 0,
@@ -91,7 +93,10 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
 
           if (model.state == ResultState.loading) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                color: colorOrange,
+                backgroundColor: colorGreyLow,
+              ),
             );
           }
 

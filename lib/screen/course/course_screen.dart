@@ -119,7 +119,10 @@ class _CourseScreenState extends State<CourseScreen> with TickerProviderStateMix
                   return const Padding(
                     padding: EdgeInsets.all(16),
                     child: Center(
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(
+                        color: colorOrange,
+                        backgroundColor: colorGreyLow,
+                      ),
                     ),
                   );
                 }
@@ -156,7 +159,10 @@ class _CourseScreenState extends State<CourseScreen> with TickerProviderStateMix
                 return const Padding(
                   padding: EdgeInsets.all(16),
                   child: Center(
-                    child: CircularProgressIndicator(),
+                    child: CircularProgressIndicator(
+                      color: colorOrange,
+                      backgroundColor: colorGreyLow,
+                    ),
                   ),
                 );
               }

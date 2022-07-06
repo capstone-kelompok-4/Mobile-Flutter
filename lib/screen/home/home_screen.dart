@@ -162,7 +162,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   return const Padding(
                     padding: EdgeInsets.all(16),
                     child: Center(
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(
+                        color: colorOrange,
+                        backgroundColor: colorGreyLow,
+                      ),
                     ),
                   );
                 }
