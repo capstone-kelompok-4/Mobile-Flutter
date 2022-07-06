@@ -31,7 +31,7 @@ class ApiService {
       }
     } on DioError catch (ex) {
       if (ex.type == DioErrorType.connectTimeout) {
-        return LoginModel.fromJson({"token": "Connection timeout"});
+        return LoginModel(timestamp: "", message: "Connection timeout");
       }
       return LoginModel(timestamp: "", message: ex.message);
     }
