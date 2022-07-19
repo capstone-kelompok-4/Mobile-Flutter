@@ -156,7 +156,7 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
                             ),
                       ),
                     ),
-                    background: model.course.bannerUrl != null || model.course.bannerUrl!.isNotEmpty
+                    background: model.course.bannerUrl != null
                         ? CachedNetworkImage(
                             imageUrl: model.course.bannerUrl!,
                             progressIndicatorBuilder: (context, url, downloadProgress) => Center(
