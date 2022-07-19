@@ -30,7 +30,7 @@ class CustomItemCourseOverview extends StatelessWidget {
             borderRadius: BorderRadius.circular(15), // Image border
             child: SizedBox.fromSize(
               size: const Size(92, 112),
-              child: courseOverview.bannerUrl != null || courseOverview.bannerUrl!.isNotEmpty
+              child: courseOverview.bannerUrl != null
                   ? CachedNetworkImage(
                       imageUrl: courseOverview.bannerUrl!,
                       progressIndicatorBuilder: (context, url, downloadProgress) => Center(
