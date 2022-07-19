@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lms/screen/section_quiz/section_quiz_screen.dart';
-import 'package:lms/utils/data_converter.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../constants/styles.dart';
@@ -19,8 +18,6 @@ class SectionMaterialScreen extends StatefulWidget {
 class _SectionMaterialScreenState extends State<SectionMaterialScreen> {
   CourseDetailDataSectionMaterial? material;
   late WebViewController _webController;
-  final ScrollController _scrollController = ScrollController();
-  double _percentageScroll = 0;
 
   @override
   void initState() {
@@ -30,32 +27,11 @@ class _SectionMaterialScreenState extends State<SectionMaterialScreen> {
       material = searchMaterial.first;
     }
 
-    _scrollController.addListener(() {
-      setState(() {
-        _percentageScroll = DataConverter.convertValueInRangeToPercentage(
-          _scrollController.position.maxScrollExtent,
-          _scrollController.position.pixels,
-          100,
-        );
-      });
-    });
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       SystemChrome.setSystemUIOverlayStyle(overlayStyleWhite);
     });
 
     super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _webController.getScrollY().asStream().listen((event) {
-        print(event);
-      });
-    });
-
-    super.didChangeDependencies();
   }
 
   @override
@@ -83,7 +59,7 @@ class _SectionMaterialScreenState extends State<SectionMaterialScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Section ${widget.section.id}",
+              "Section ${widget.section.number}",
               style: Theme.of(context).textTheme.subtitle2!.copyWith(
                     color: colorOrange,
                     fontWeight: FontWeight.bold,
@@ -156,9 +132,7 @@ class _SectionMaterialScreenState extends State<SectionMaterialScreen> {
           onWebViewCreated: (controller) {
             _webController = controller;
           },
-          onPageStarted: (url) {
-            print('onload: $url');
-          },
+          onPageStarted: (url) {},
         ),
       ),
     );

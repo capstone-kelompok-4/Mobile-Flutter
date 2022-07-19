@@ -27,6 +27,7 @@ UserDataModel _$UserDataModelFromJson(Map<String, dynamic> json) =>
       email: json['username'] as String,
       phoneNumber: json['phone_number'] as String?,
       imageUrl: json['image_url'] as String?,
+      lastAccess: json['last_access'] as String?,
       roles: (json['roles'] as List<dynamic>)
           .map((e) => UserDataRole.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -43,6 +44,7 @@ Map<String, dynamic> _$UserDataModelToJson(UserDataModel instance) =>
       'username': instance.email,
       'phone_number': instance.phoneNumber,
       'image_url': instance.imageUrl,
+      'last_access': instance.lastAccess,
       'roles': instance.roles,
       'user_specialization': instance.userSpecialization,
       'address': instance.address,

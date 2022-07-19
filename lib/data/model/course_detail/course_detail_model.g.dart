@@ -26,12 +26,16 @@ CourseDetailData _$CourseDetailDataFromJson(Map<String, dynamic> json) =>
     CourseDetailData(
       id: json['id'] as int,
       name: json['name'] as String,
+      bannerUrl: json['banner_url'] as String?,
       description: json['description'] as String,
-      rate: (json['rate'] as num).toDouble(),
+      rate: (json['rate'] as num?)?.toDouble(),
       targetLearner: (json['target_learner'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
       objectiveLearner: (json['objective_learner'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
+      methodologyLearnings: (json['methodology_learnings'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
       specialization: CourseDetailDataSpecialization.fromJson(
@@ -46,10 +50,12 @@ Map<String, dynamic> _$CourseDetailDataToJson(CourseDetailData instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
+      'banner_url': instance.bannerUrl,
       'description': instance.description,
       'rate': instance.rate,
       'target_learner': instance.targetLearner,
       'objective_learner': instance.objectiveLearner,
+      'methodology_learnings': instance.methodologyLearnings,
       'course_specialization': instance.specialization,
       'sections': instance.sections,
     };
@@ -72,6 +78,7 @@ CourseDetailDataSection _$CourseDetailDataSectionFromJson(
         Map<String, dynamic> json) =>
     CourseDetailDataSection(
       id: json['id'] as int,
+      number: json['number'] as int,
       name: json['name'] as String,
       materials: (json['materials'] as List<dynamic>)
           .map((e) => CourseDetailDataSectionMaterial.fromJson(
@@ -83,6 +90,7 @@ Map<String, dynamic> _$CourseDetailDataSectionToJson(
         CourseDetailDataSection instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'number': instance.number,
       'name': instance.name,
       'materials': instance.materials,
     };

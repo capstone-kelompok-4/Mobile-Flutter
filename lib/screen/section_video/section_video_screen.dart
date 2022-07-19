@@ -30,6 +30,23 @@ class _SectionVideoScreenState extends State<SectionVideoScreen> {
   late VideoPlayerController _videoController;
   ChewieController? _chewieController;
 
+  Future<void> _loadVideoPlayer() async {
+    final SectionVideoViewModel sectionVideoViewModel =
+        Provider.of<SectionVideoViewModel>(context, listen: false);
+    _videoController.dispose();
+    _videoController = VideoPlayerController.network(_videoYoutube.url,
+        videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true))
+      ..addListener(() {
+        sectionVideoViewModel.setRecentPlayingSeconds(
+          _videoController.value.position.inMilliseconds,
+          _videoController.value.duration.inMilliseconds,
+        );
+      });
+    await _videoController.initialize().then((value) => _videoController.play());
+
+    setChewie();
+  }
+
   void setChewie() {
     if (_chewieController != null) {
       _chewieController!.dispose();
@@ -48,6 +65,12 @@ class _SectionVideoScreenState extends State<SectionVideoScreen> {
       autoPlay: true,
       looping: false,
       zoomAndPan: true,
+      materialProgressColors: ChewieProgressColors(
+        playedColor: colorOrange,
+        bufferedColor: colorOrangeLight,
+        handleColor: Colors.white,
+        backgroundColor: colorGrey,
+      ),
       additionalOptions: (context) => [
         OptionItem(
           onTap: () async {
@@ -97,25 +120,11 @@ class _SectionVideoScreenState extends State<SectionVideoScreen> {
                                     _isLoadingQuality = true;
                                   });
 
-                                  _videoController.dispose();
-                                  _videoController = VideoPlayerController.network(
-                                      _videoYoutube.url,
-                                      videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true))
-                                    ..addListener(() {
-                                      model.setRecentPlayingSeconds(
-                                        _videoController.value.position.inMilliseconds,
-                                        _videoController.value.duration.inMilliseconds,
-                                      );
-                                    });
-                                  await _videoController
-                                      .initialize()
-                                      .then((value) => _videoController.play());
+                                  await _loadVideoPlayer();
 
                                   setDialogState(() {
                                     _isLoadingQuality = false;
                                   });
-
-                                  setChewie();
 
                                   navigatorDialog.pop(true);
                                 },
@@ -201,18 +210,7 @@ class _SectionVideoScreenState extends State<SectionVideoScreen> {
             _groupValue = _videoYoutube.qualityLabel;
           });
 
-          _videoController.dispose();
-          _videoController = VideoPlayerController.network(_videoYoutube.url,
-              videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true))
-            ..addListener(() {
-              sectionVideoViewModel.setRecentPlayingSeconds(
-                _videoController.value.position.inMilliseconds,
-                _videoController.value.duration.inMilliseconds,
-              );
-            });
-          await _videoController.initialize().then((value) => _videoController.play());
-
-          setChewie();
+          await _loadVideoPlayer();
         }
       }
     });
@@ -265,7 +263,7 @@ class _SectionVideoScreenState extends State<SectionVideoScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Section ${widget.section.id}",
+                "Section ${widget.section.number}",
                 style: Theme.of(context).textTheme.subtitle2!.copyWith(
                       color: colorOrange,
                       fontWeight: FontWeight.bold,

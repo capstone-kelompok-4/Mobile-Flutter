@@ -2,11 +2,11 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:lms/data/model/course_detail/course_detail_model.dart';
-import 'package:lms/screen/section_material/section_material_screen.dart';
 import 'package:lms/screen/section_quiz/section_quiz_screen.dart';
 import 'package:lms/screen/section_video/section_video_screen.dart';
 
 import '../constants/styles.dart';
+import '../screen/section_material/section_material_screen.dart';
 
 class CustomItemSection extends StatefulWidget {
   final CourseDetailDataSection section;
@@ -60,7 +60,7 @@ class _CustomItemSectionState extends State<CustomItemSection> with TickerProvid
       },
       childrenPadding: const EdgeInsets.only(right: 16.0, bottom: 16.0, left: 16.0),
       title: Text(
-        "Section ${widget.section.id}",
+        "Section ${widget.section.number}",
         style: Theme.of(context).textTheme.subtitle2!.copyWith(
               color: Colors.white,
             ),
@@ -82,107 +82,96 @@ class _CustomItemSectionState extends State<CustomItemSection> with TickerProvid
           );
         },
       ),
-      children: [
-        InkWell(
-          onTap: () =>
-              Navigator.pushNamed(context, SectionVideoScreen.routeName, arguments: widget.section),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 6.0),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                const Icon(
-                  Icons.play_circle_fill,
-                  color: colorOrange,
-                ),
-                const SizedBox(
-                  width: 6.0,
-                ),
-                Expanded(
-                  child: Text(
-                    "Video - ${widget.section.name}",
-                    style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                          color: Colors.white,
-                        ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        InkWell(
-          onTap: () => Navigator.pushNamed(context, SectionMaterialScreen.routeName,
-              arguments: widget.section),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 6.0),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Container(
-                  width: 20,
-                  height: 20,
-                  margin: const EdgeInsets.only(left: 2),
-                  padding: const EdgeInsets.all(2.0),
-                  decoration: BoxDecoration(
-                    color: colorOrange,
-                    borderRadius: BorderRadius.circular(150.0),
-                  ),
-                  child: const Center(
-                    child: Icon(
-                      Icons.download_rounded,
-                      size: 15,
-                      color: colorBlueDark,
+      children: widget.section.materials
+          .map(
+            (item) => InkWell(
+              onTap: () {
+                if (item.type == "SLIDE") {
+                  Navigator.pushNamed(context, SectionMaterialScreen.routeName,
+                      arguments: widget.section);
+                }
+                if (item.type == "VIDEO") {
+                  Navigator.pushNamed(context, SectionVideoScreen.routeName,
+                      arguments: widget.section);
+                }
+                if (item.type == "QUIZ") {
+                  Navigator.pushNamed(context, SectionQuizScreen.routeName,
+                      arguments: widget.section);
+                }
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 6.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    if (item.type == "QUIZ")
+                      const SizedBox(
+                        width: 2.0,
+                      ),
+                    item.type == "SLIDE"
+                        ? Container(
+                            width: 20,
+                            height: 20,
+                            margin: const EdgeInsets.only(left: 2),
+                            padding: const EdgeInsets.all(2.0),
+                            decoration: BoxDecoration(
+                              color: colorOrange,
+                              borderRadius: BorderRadius.circular(150.0),
+                            ),
+                            child: const Center(
+                              child: Icon(
+                                Icons.download_rounded,
+                                size: 15,
+                                color: colorBlueDark,
+                              ),
+                            ),
+                          )
+                        : item.type == "VIDEO"
+                            ? const Icon(
+                                Icons.play_circle_fill,
+                                color: colorOrange,
+                              )
+                            : item.type == "QUIZ"
+                                ? SizedBox.fromSize(
+                                    size: const Size(20, 20),
+                                    child: Center(
+                                      child: Image.asset("assets/images/icon_flash.png"),
+                                    ),
+                                  )
+                                : Container(
+                                    width: 20,
+                                    height: 20,
+                                    margin: const EdgeInsets.only(left: 2),
+                                    padding: const EdgeInsets.all(2.0),
+                                    decoration: BoxDecoration(
+                                      color: colorOrange,
+                                      borderRadius: BorderRadius.circular(150.0),
+                                    ),
+                                    child: const Center(
+                                      child: Icon(
+                                        Icons.image_not_supported_outlined,
+                                        size: 15,
+                                        color: colorBlueDark,
+                                      ),
+                                    ),
+                                  ),
+                    const SizedBox(
+                      width: 8.0,
                     ),
-                  ),
+                    Expanded(
+                      child: Text(
+                        "${item.type} - ${widget.section.name}",
+                        style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                              color: Colors.white,
+                            ),
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(
-                  width: 8.0,
-                ),
-                Expanded(
-                  child: Text(
-                    "Materi - ${widget.section.name}",
-                    style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                          color: Colors.white,
-                        ),
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
-        ),
-        InkWell(
-          onTap: () =>
-              Navigator.pushNamed(context, SectionQuizScreen.routeName, arguments: widget.section),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 6.0),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                const SizedBox(
-                  width: 2.0,
-                ),
-                SizedBox.fromSize(
-                  size: const Size(20, 20),
-                  child: Center(
-                    child: Image.asset("assets/images/icon_flash.png"),
-                  ),
-                ),
-                const SizedBox(
-                  width: 8.0,
-                ),
-                Expanded(
-                  child: Text(
-                    "Quiz",
-                    style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                          color: Colors.white,
-                        ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
+          )
+          .toList(),
     );
   }
 }

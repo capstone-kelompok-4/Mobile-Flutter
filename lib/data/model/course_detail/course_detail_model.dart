@@ -24,12 +24,16 @@ class CourseDetailModel {
 class CourseDetailData {
   int id;
   String name;
+  @JsonKey(name: 'banner_url')
+  String? bannerUrl;
   String description;
-  double rate;
+  double? rate;
   @JsonKey(name: 'target_learner')
   List<String> targetLearner;
   @JsonKey(name: 'objective_learner')
   List<String> objectiveLearner;
+  @JsonKey(name: 'methodology_learnings')
+  List<String> methodologyLearnings;
   @JsonKey(name: 'course_specialization')
   CourseDetailDataSpecialization specialization;
   List<CourseDetailDataSection> sections;
@@ -37,10 +41,12 @@ class CourseDetailData {
   CourseDetailData({
     required this.id,
     required this.name,
+    this.bannerUrl,
     required this.description,
-    required this.rate,
+    this.rate,
     required this.targetLearner,
     required this.objectiveLearner,
+    required this.methodologyLearnings,
     required this.specialization,
     required this.sections,
   });
@@ -69,10 +75,12 @@ class CourseDetailDataSpecialization {
 @JsonSerializable()
 class CourseDetailDataSection {
   int id;
+  int number;
   String name;
   List<CourseDetailDataSectionMaterial> materials;
 
-  CourseDetailDataSection({required this.id, required this.name, required this.materials});
+  CourseDetailDataSection(
+      {required this.id, required this.number, required this.name, required this.materials});
 
   factory CourseDetailDataSection.fromJson(Map<String, dynamic> json) =>
       _$CourseDetailDataSectionFromJson(json);

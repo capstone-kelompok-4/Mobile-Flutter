@@ -6,6 +6,7 @@ import 'package:lms/screen/certificate/certificate_screen.dart';
 import 'package:lms/screen/certificate_check/certificate_check_screen.dart';
 import 'package:lms/screen/course/course_view_model.dart';
 import 'package:lms/screen/course_request_form/course_request_form_screen.dart';
+import 'package:lms/screen/course_request_form/course_request_form_view_model.dart';
 import 'package:lms/screen/detail_course/detail_course_screen.dart';
 import 'package:lms/screen/detail_course/detail_course_view_model.dart';
 import 'package:lms/screen/faq/faq_screen.dart';
@@ -59,6 +60,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => SectionVideoViewModel()),
         ChangeNotifierProvider(create: (context) => SectionQuizViewModel()),
         ChangeNotifierProvider(create: (context) => DetailCourseViewModel()),
+        ChangeNotifierProvider(create: (context) => CourseRequestFormViewModel()),
         ChangeNotifierProvider(create: (context) => ProfileViewModel()),
         ChangeNotifierProvider(create: (context) => ProfileEditViewModel()),
         ChangeNotifierProvider(create: (context) => ProfileChangePasswordViewModel()),

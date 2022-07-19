@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lms/data/model/course_detail/course_detail_model.dart';
 import 'package:lms/screen/detail_course/detail_course_view_model.dart';
@@ -36,7 +37,18 @@ class CustomItemMyCourse extends StatelessWidget {
               borderRadius: BorderRadius.circular(15),
               child: SizedBox.fromSize(
                 size: const Size(92, 112),
-                child: Image.asset("assets/images/course_1.png"),
+                child: myCourse.bannerUrl != null || myCourse.bannerUrl!.isNotEmpty
+                    ? CachedNetworkImage(
+                        imageUrl: myCourse.bannerUrl!,
+                        progressIndicatorBuilder: (context, url, downloadProgress) => Center(
+                          child: CircularProgressIndicator(
+                            value: downloadProgress.progress,
+                            color: colorOrange,
+                          ),
+                        ),
+                        errorWidget: (context, url, error) => const Icon(Icons.error),
+                      )
+                    : Image.asset("assets/images/course_1.png"),
               ),
             ),
             const SizedBox(

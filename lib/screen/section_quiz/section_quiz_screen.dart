@@ -35,7 +35,6 @@ class _SectionQuizScreenState extends State<SectionQuizScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -58,7 +57,7 @@ class _SectionQuizScreenState extends State<SectionQuizScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Section ${widget.section.id}",
+              "Section ${widget.section.number}",
               style: Theme.of(context).textTheme.subtitle2!.copyWith(
                     color: colorOrange,
                     fontWeight: FontWeight.bold,
@@ -104,9 +103,7 @@ class _SectionQuizScreenState extends State<SectionQuizScreen> {
           onWebViewCreated: (controller) {
             _webController = controller;
           },
-          onPageStarted: (url) {
-            print('onload: $url');
-          },
+          onPageStarted: (url) {},
         ),
       ),
     );

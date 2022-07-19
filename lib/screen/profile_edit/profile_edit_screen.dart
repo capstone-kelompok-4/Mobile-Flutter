@@ -143,6 +143,24 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   }
 
   @override
+  void initState() {
+    final LoginViewModel loginViewModel = Provider.of(context, listen: false);
+    final user = loginViewModel.userLogin;
+
+    _nameController.text = user?.name ?? "";
+    _specialistController.text = user?.userSpecialization.name ?? "";
+    _emailController.text = user?.email ?? "";
+    _phoneController.text = user?.phoneNumber ?? "";
+    _addressController.text = user?.address.detailAddress ?? "";
+    _countryController.text = user?.address.country ?? "";
+    _provinceController.text = user?.address.stateProvince ?? "";
+    _cityController.text = user?.address.city ?? "";
+    _zipCodeController.text = user?.address.zipCode ?? "";
+
+    super.initState();
+  }
+
+  @override
   void dispose() {
     _nameController.dispose();
     _specialistController.dispose();
@@ -222,16 +240,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
       body: SingleChildScrollView(
         child: Consumer<LoginViewModel>(builder: (context, model, child) {
           final user = model.userLogin;
-
-          _nameController.text = user?.name ?? "";
-          _specialistController.text = user?.userSpecialization.name ?? "";
-          _emailController.text = user?.email ?? "";
-          _phoneController.text = user?.phoneNumber ?? "";
-          _addressController.text = user?.address.detailAddress ?? "";
-          _countryController.text = user?.address.country ?? "";
-          _provinceController.text = user?.address.stateProvince ?? "";
-          _cityController.text = user?.address.city ?? "";
-          _zipCodeController.text = user?.address.zipCode ?? "";
 
           return Form(
             key: _formKey,
@@ -388,6 +396,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                         controller: _emailController,
                         autocorrect: false,
                         keyboardType: TextInputType.emailAddress,
+                        readOnly: true,
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
                           fillColor: Colors.white,

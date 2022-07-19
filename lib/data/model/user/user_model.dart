@@ -25,6 +25,8 @@ class UserDataModel {
   String? phoneNumber;
   @JsonKey(name: 'image_url')
   String? imageUrl;
+  @JsonKey(name: 'last_access')
+  String? lastAccess;
   List<UserDataRole> roles;
   @JsonKey(name: 'user_specialization')
   UserDataSpecialization userSpecialization;
@@ -36,6 +38,7 @@ class UserDataModel {
     required this.email,
     this.phoneNumber,
     this.imageUrl,
+    this.lastAccess,
     required this.roles,
     required this.userSpecialization,
     required this.address,

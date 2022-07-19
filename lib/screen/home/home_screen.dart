@@ -170,6 +170,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 }
 
+                if (model.stateMyCourses == ResultState.empty) {
+                  return Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Center(
+                      child: Text(
+                        "Belum ada history course",
+                        style: Theme.of(context)
+                            .textTheme
+                            .subtitle1!
+                            .copyWith(color: colorTextBlue, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  );
+                }
+
                 if (model.stateMyCourses == ResultState.error) {
                   return Padding(
                     padding: const EdgeInsets.all(16),
@@ -185,6 +200,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 }
 
+                final listMyCourse =
+                    model.myCourses.where((course) => course.status == "ACCEPTED").toList();
+
                 return SizedBox(
                   height: 210,
                   child: ListView.separated(
@@ -196,9 +214,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           width: 10,
                         );
                       },
-                      itemCount: model.myCourses.length,
+                      itemCount: listMyCourse.length,
                       itemBuilder: (context, index) {
-                        final myCourse = model.myCourses[index].course;
+                        final myCourse = listMyCourse[index].course;
                         Color color = colorOrangeLight;
                         if (index % 2 == 0) {
                           color = colorOrangeLight;

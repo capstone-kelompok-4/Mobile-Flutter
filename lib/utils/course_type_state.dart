@@ -1,1 +1,1 @@
-enum CourseTypeState { request, preview, learning }
+enum CourseTypeState { request, preview, learning, waitingApproval }
