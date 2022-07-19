@@ -23,7 +23,6 @@ import 'package:lms/screen/profile_change_password/profile_change_password_scree
 import 'package:lms/screen/profile_change_password/profile_change_password_view_model.dart';
 import 'package:lms/screen/profile_edit/profile_edit_screen.dart';
 import 'package:lms/screen/profile_edit/profile_edit_view_model.dart';
-import 'package:lms/screen/register/register_screen.dart';
 import 'package:lms/screen/section_material/section_material_screen.dart';
 import 'package:lms/screen/section_quiz/section_quiz_screen.dart';
 import 'package:lms/screen/section_quiz/section_quiz_view_model.dart';
@@ -85,11 +84,6 @@ class MyApp extends StatelessWidget {
           if (setting.name == LoginScreen.routeName) {
             return PageRouteFadeTransition(
               const LoginScreen(),
-            );
-          }
-          if (setting.name == RegisterScreen.routeName) {
-            return PageRouteFadeTransition(
-              const RegisterScreen(),
             );
           }
           if (setting.name == ForgotPasswordScreen.routeName) {
