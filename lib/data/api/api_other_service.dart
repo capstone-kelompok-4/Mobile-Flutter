@@ -21,7 +21,6 @@ class ApiOtherService {
       );
 
       if (response.statusCode == 200) {
-        print(VideoYoutubeModel.fromJson(response.data).toJson());
         return VideoYoutubeModel.fromJson(response.data);
       } else {
         return VideoYoutubeModel(status: false, message: "Failed to get data");

@@ -8,7 +8,7 @@ part 'course_taken_model.g.dart';
 class CourseTakenModel {
   String timestamp;
   String message;
-  List<CourseTakenData> data;
+  List<CourseTakenData>? data;
 
   CourseTakenModel({
     required this.timestamp,
@@ -24,20 +24,52 @@ class CourseTakenModel {
 @JsonSerializable()
 class CourseTakenData {
   int id;
+  int progress;
   double? rate;
+  @JsonKey(name: 'request_type')
+  String requestType;
+  @JsonKey(name: 'request_detail')
+  String requestDetail;
+  String status;
   @JsonKey(name: 'taken_at')
-  String takenAt;
+  String? takenAt;
   @JsonKey(name: 'course_take')
   CourseDetailData course;
+  List<CourseTakenDataReport>? reports;
 
   CourseTakenData({
     required this.id,
-    required this.rate,
-    required this.takenAt,
+    required this.progress,
+    this.rate,
+    required this.requestType,
+    required this.requestDetail,
+    required this.status,
+    this.takenAt,
     required this.course,
+    this.reports,
   });
 
   factory CourseTakenData.fromJson(Map<String, dynamic> json) => _$CourseTakenDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$CourseTakenDataToJson(this);
+}
+
+@JsonSerializable()
+class CourseTakenDataReport {
+  int id;
+  bool completed;
+  int score;
+  CourseDetailDataSectionMaterial material;
+
+  CourseTakenDataReport({
+    required this.id,
+    required this.completed,
+    required this.score,
+    required this.material,
+  });
+
+  factory CourseTakenDataReport.fromJson(Map<String, dynamic> json) =>
+      _$CourseTakenDataReportFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CourseTakenDataReportToJson(this);
 }

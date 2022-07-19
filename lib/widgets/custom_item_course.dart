@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:provider/provider.dart';
@@ -40,10 +41,18 @@ class CustomItemCourse extends StatelessWidget {
                     topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0)),
                 child: SizedBox.fromSize(
                   size: Size(MediaQuery.of(context).size.width / 2 - 20, 80),
-                  child: Image.asset(
-                    "assets/images/course_1.png",
-                    fit: BoxFit.cover,
-                  ),
+                  child: myCourse.bannerUrl != null || myCourse.bannerUrl!.isNotEmpty
+                      ? CachedNetworkImage(
+                          imageUrl: myCourse.bannerUrl!,
+                          progressIndicatorBuilder: (context, url, downloadProgress) => Center(
+                            child: CircularProgressIndicator(
+                              value: downloadProgress.progress,
+                              color: colorOrange,
+                            ),
+                          ),
+                          errorWidget: (context, url, error) => const Icon(Icons.error),
+                        )
+                      : Image.asset("assets/images/course_1.png"),
                 ),
               ),
             ),

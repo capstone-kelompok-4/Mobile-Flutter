@@ -127,6 +127,21 @@ class _CourseScreenState extends State<CourseScreen> with TickerProviderStateMix
                   );
                 }
 
+                if (model.stateMyCourses == ResultState.empty) {
+                  return Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Center(
+                      child: Text(
+                        "Belum memiliki course",
+                        style: Theme.of(context)
+                            .textTheme
+                            .subtitle1!
+                            .copyWith(color: colorTextBlue, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  );
+                }
+
                 if (model.stateMyCourses == ResultState.error) {
                   return Padding(
                     padding: const EdgeInsets.all(16),
@@ -142,12 +157,15 @@ class _CourseScreenState extends State<CourseScreen> with TickerProviderStateMix
                   );
                 }
 
+                final listMyCourse =
+                    model.myCourses.where((course) => course.status == "ACCEPTED").toList();
+
                 return ListView.builder(
                     shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: model.myCourses.length,
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: listMyCourse.length,
                     itemBuilder: (context, index) {
-                      final myCourse = model.myCourses[index].course;
+                      final myCourse = listMyCourse[index].course;
 
                       return CustomItemMyCourse(
                         myCourse: myCourse,

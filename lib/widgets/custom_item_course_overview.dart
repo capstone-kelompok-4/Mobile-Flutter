@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lms/data/model/course_detail/course_detail_model.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +30,18 @@ class CustomItemCourseOverview extends StatelessWidget {
             borderRadius: BorderRadius.circular(15), // Image border
             child: SizedBox.fromSize(
               size: const Size(92, 112),
-              child: Image.asset("assets/images/course_1.png"),
+              child: courseOverview.bannerUrl != null || courseOverview.bannerUrl!.isNotEmpty
+                  ? CachedNetworkImage(
+                      imageUrl: courseOverview.bannerUrl!,
+                      progressIndicatorBuilder: (context, url, downloadProgress) => Center(
+                        child: CircularProgressIndicator(
+                          value: downloadProgress.progress,
+                          color: colorOrange,
+                        ),
+                      ),
+                      errorWidget: (context, url, error) => const Icon(Icons.error),
+                    )
+                  : Image.asset("assets/images/course_1.png"),
             ),
           ),
           const SizedBox(
@@ -60,9 +72,9 @@ class CustomItemCourseOverview extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox.fromSize(
-                            size: const Size(20, 15),
-                            child: Image.asset("assets/images/icon_book"
-                                ".png")),
+                          size: const Size(20, 15),
+                          child: Image.asset("assets/images/icon_book.png"),
+                        ),
                         const SizedBox(
                           width: 8.0,
                         ),
@@ -79,13 +91,14 @@ class CustomItemCourseOverview extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox.fromSize(
-                            size: const Size(20, 15),
-                            child: Image.asset("assets/images/icon_star.png")),
+                          size: const Size(20, 15),
+                          child: Image.asset("assets/images/icon_star.png"),
+                        ),
                         const SizedBox(
                           width: 8.0,
                         ),
                         Text(
-                          "${courseOverview.rate}",
+                          "${courseOverview.rate ?? 0.0}",
                           style: Theme.of(context).textTheme.subtitle2!.copyWith(
                               fontSize: 12, color: colorTextBlue, fontWeight: FontWeight.bold),
                         ),
@@ -106,10 +119,14 @@ class CustomItemCourseOverview extends StatelessWidget {
                           Provider.of<CourseViewModel>(context, listen: false);
 
                       final searchMyCourse = courseViewModel.myCourses
-                          .where((course) => course.id == courseOverview.id);
+                          .where((course) => course.course.id == courseOverview.id);
 
                       if (searchMyCourse.isNotEmpty) {
-                        detailCourseViewModel.changeCourseType(CourseTypeState.preview);
+                        if (searchMyCourse.first.status == "PENDING") {
+                          detailCourseViewModel.changeCourseType(CourseTypeState.waitingApproval);
+                        } else {
+                          detailCourseViewModel.changeCourseType(CourseTypeState.preview);
+                        }
                       } else {
                         detailCourseViewModel.changeCourseType(CourseTypeState.request);
                       }

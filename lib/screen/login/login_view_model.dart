@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:lms/data/api/api_service.dart';
 import 'package:lms/data/preferences/user_preference.dart';
 import 'package:lms/utils/get_connection.dart';
@@ -68,7 +68,6 @@ class LoginViewModel extends ChangeNotifier {
       getUserPref();
 
       changeStateUser(ResultState.hasData);
-      print(_token);
       return result.data;
     } catch (e) {
       changeStateUser(ResultState.error);

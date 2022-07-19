@@ -14,6 +14,16 @@ class LearningCourseUI extends StatefulWidget {
 }
 
 class _LearningCourseUIState extends State<LearningCourseUI> {
+  List<CourseDetailDataSection> _sections = [];
+
+  @override
+  void initState() {
+    _sections = widget.course.sections;
+    _sections.sort((a, b) => a.number.compareTo(b.number));
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -119,9 +129,9 @@ class _LearningCourseUIState extends State<LearningCourseUI> {
                     height: 8.0,
                   );
                 },
-                itemCount: widget.course.sections.length,
+                itemCount: _sections.length,
                 itemBuilder: (context, index) {
-                  final section = widget.course.sections[index];
+                  final section = _sections[index];
                   return CustomItemSection(
                     section: section,
                   );

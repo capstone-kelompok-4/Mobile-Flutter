@@ -28,7 +28,7 @@ class CourseViewModel extends ChangeNotifier {
   List<CourseDetailData> _courseOverview = [];
   List<CourseDetailData> get courseOverview => _courseOverview;
 
-  void getCourseTaken() async {
+  Future<void> getCourseTaken() async {
     changeMyCoursesState(ResultState.loading);
     try {
       final connection = await _getConnection.getConnection();
@@ -47,7 +47,12 @@ class CourseViewModel extends ChangeNotifier {
         return;
       }
 
-      _myCourses = result.data;
+      if (result.data == null) {
+        changeMyCoursesState(ResultState.empty);
+        return;
+      }
+
+      _myCourses = result.data!;
 
       changeMyCoursesState(ResultState.hasData);
     } catch (e) {
@@ -55,7 +60,7 @@ class CourseViewModel extends ChangeNotifier {
     }
   }
 
-  void getAllCourses() async {
+  Future<void> getAllCourses() async {
     changeCourseOverviewState(ResultState.loading);
     try {
       final connection = await _getConnection.getConnection();

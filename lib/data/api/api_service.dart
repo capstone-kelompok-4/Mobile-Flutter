@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:lms/data/model/course/course_model.dart';
 import 'package:lms/data/model/course_detail/course_detail_model.dart';
 import 'package:lms/data/model/course_taken/course_taken_model.dart';
+import 'package:lms/data/model/request_course/request_course_model.dart';
 import 'package:lms/data/model/user/user_model.dart';
 
 import '../model/login/login_model.dart';
@@ -24,7 +25,7 @@ class ApiService {
         data: {"email": email, "password": password},
       );
 
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
         return LoginModel.fromJson(response.data);
       } else {
         return LoginModel(timestamp: "", message: "Failed to login");
@@ -66,6 +67,9 @@ class ApiService {
         "/course-takens/history",
         options: Options(
           method: 'GET',
+          validateStatus: (status) {
+            return status! <= 500;
+          },
           headers: {"Authorization": "Bearer $token"},
         ),
       );
@@ -73,7 +77,33 @@ class ApiService {
       if (response.statusCode == 200) {
         return CourseTakenModel.fromJson(response.data);
       } else {
-        return CourseTakenModel(timestamp: "", message: "", data: []);
+        return CourseTakenModel.fromJson(response.data);
+      }
+    } on DioError catch (ex) {
+      if (ex.type == DioErrorType.connectTimeout) {
+        return CourseTakenModel(timestamp: "", message: "Connection timeout", data: []);
+      }
+      return CourseTakenModel(timestamp: "", message: ex.message, data: []);
+    }
+  }
+
+  Future<CourseTakenModel> getCourseTakenById(String token, idCourseTaken) async {
+    try {
+      Response response = await _dio.request(
+        "/course-takens/$idCourseTaken",
+        options: Options(
+          method: 'GET',
+          validateStatus: (status) {
+            return status! <= 500;
+          },
+          headers: {"Authorization": "Bearer $token"},
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        return CourseTakenModel.fromJson(response.data);
+      } else {
+        return CourseTakenModel.fromJson(response.data);
       }
     } on DioError catch (ex) {
       if (ex.type == DioErrorType.connectTimeout) {
@@ -129,6 +159,35 @@ class ApiService {
     }
   }
 
+  Future<RequestCourseModel> requestCourse(
+      String token, int idCourse, int requestType, String requestDetail) async {
+    try {
+      Response response = await _dio.request(
+        "/course-takens",
+        options: Options(
+          method: 'POST',
+          headers: {"Authorization": "Bearer $token"},
+        ),
+        data: {
+          "request_type": requestType,
+          "course_id": idCourse,
+          "request_detail": requestDetail,
+        },
+      );
+
+      if (response.statusCode == 201) {
+        return RequestCourseModel.fromJson(response.data);
+      } else {
+        return RequestCourseModel(timestamp: "", message: "");
+      }
+    } on DioError catch (ex) {
+      if (ex.type == DioErrorType.connectTimeout) {
+        return RequestCourseModel(timestamp: "", message: "Connection timeout");
+      }
+      return RequestCourseModel(timestamp: "", message: ex.message);
+    }
+  }
+
   Future<UserModel> editProfile(
       String token, String name, String phone, String imageUrl, UserDataAddress address) async {
     try {
@@ -156,6 +215,30 @@ class ApiService {
         return UserModel(timestamp: "", message: "Connection timeout");
       }
       return UserModel(timestamp: "", message: ex.message);
+    }
+  }
+
+  Future<RequestCourseModel> editRatingCourse(String token, int idCourseTaken, double rate) async {
+    try {
+      Response response = await _dio.request(
+        "/course-takens/rates/$idCourseTaken",
+        options: Options(
+          method: 'PUT',
+          headers: {"Authorization": "Bearer $token"},
+        ),
+        data: {"rate": rate},
+      );
+
+      if (response.statusCode == 200) {
+        return RequestCourseModel.fromJson(response.data);
+      } else {
+        return RequestCourseModel(timestamp: "", message: "Failed to update");
+      }
+    } on DioError catch (ex) {
+      if (ex.type == DioErrorType.connectTimeout) {
+        return RequestCourseModel(timestamp: "", message: "Connection timeout");
+      }
+      return RequestCourseModel(timestamp: "", message: ex.message);
     }
   }
 
